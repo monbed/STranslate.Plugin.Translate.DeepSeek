@@ -1,0 +1,10 @@
+﻿{
+  "PluginID": "7rfzacjt341cveacqwj7qbd1kn4zv2z1",
+  "Name": "DeepSeek",
+  "Description": "DeepSeek plugin for STranslate",
+  "Author": "monbed",
+  "Version": "1.0.0",
+  "Website": "https://github.com/monbed/STranslate.Plugin.Translate.DeepSeek",
+  "ExecuteFileName": "STranslate.Plugin.Translate.DeepSeek.dll",
+  "IconPath": "icon.png"
+}

@@ -1,0 +1,164 @@
+<UserControl
+    x:Class="STranslate.Plugin.Translate.DeepSeek.View.SettingsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:plugin="clr-namespace:STranslate.Plugin;assembly=STranslate.Plugin"
+    xmlns:s="https://github.com/zggsong/2022/xaml"
+    xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+    xmlns:vm="clr-namespace:STranslate.Plugin.Translate.DeepSeek.ViewModel"
+    d:DataContext="{d:DesignInstance Type=vm:SettingsViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
+    <ikw:SimpleStackPanel Spacing="12">
+        <!--  API URL 配置  -->
+        <ui:SettingsCard Description="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Url_Description}" Header="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Url}">
+            <ui:SettingsCard.HeaderIcon>
+                <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Globe_24_Regular}" />
+            </ui:SettingsCard.HeaderIcon>
+            <TextBox
+                MinWidth="300"
+                ui:ControlHelper.PlaceholderText="https://api.deepseek.com"
+                Text="{Binding Url}" />
+        </ui:SettingsCard>
+
+        <!--  API Key 配置  -->
+        <ui:SettingsCard Description="{DynamicResource STranslate_Plugin_Translate_DeepSeek_ApiKey_Description}" Header="{DynamicResource STranslate_Plugin_Translate_DeepSeek_ApiKey}">
+            <ui:SettingsCard.HeaderIcon>
+                <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Key_24_Regular}" />
+            </ui:SettingsCard.HeaderIcon>
+            <PasswordBox
+                MinWidth="300"
+                plugin:PasswordBoxAssistant.Attach="True"
+                plugin:PasswordBoxAssistant.Password="{Binding ApiKey}"
+                ui:ControlHelper.PlaceholderText="{DynamicResource STranslate_Plugin_Translate_DeepSeek_ApiKey_Placeholder}" />
+        </ui:SettingsCard>
+
+        <!--  Model 配置  -->
+        <ui:SettingsCard Header="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Model}">
+            <ui:SettingsCard.HeaderIcon>
+                <ui:FontIcon FontFamily="{StaticResource {x:Static ui:ThemeKeys.FluentSystemIconsKey}}" Glyph="&#xF0797;" />
+            </ui:SettingsCard.HeaderIcon>
+            <ComboBox
+                MinWidth="200"
+                IsEditable="True"
+                ItemsSource="{Binding Models}"
+                SelectedItem="{Binding Model, Mode=TwoWay}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="LostFocus">
+                        <i:InvokeCommandAction Command="{Binding AddModelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ComboBox}, Path=Text}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Text="{Binding}" />
+                            <Button
+                                Grid.Column="1"
+                                Margin="4,0,0,0"
+                                Padding="4"
+                                VerticalAlignment="Center"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Command="{Binding DataContext.DeleteModelCommand, RelativeSource={RelativeSource AncestorType=ComboBox}}"
+                                CommandParameter="{Binding}">
+                                <ui:FontIcon
+                                    FontSize="{DynamicResource STControlFontSize12}"
+                                    Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                                    Icon="{x:Static ui:FluentSystemIcons.Delete_24_Regular}" />
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </ui:SettingsCard>
+
+        <!--  提示词选择和编辑  -->
+        <ui:SettingsCard Description="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Prompt_Description}" Header="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Prompt_Header}">
+            <ui:SettingsCard.HeaderIcon>
+                <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Chat_20_Regular}" />
+            </ui:SettingsCard.HeaderIcon>
+
+            <ikw:SimpleStackPanel Orientation="Horizontal" Spacing="8">
+                <ComboBox
+                    MinWidth="200"
+                    ui:ControlHelper.PlaceholderText="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Prompt_Placeholder}"
+                    DisplayMemberPath="Name"
+                    ItemsSource="{Binding Main.Prompts}"
+                    SelectedItem="{Binding Main.SelectedPrompt, Mode=TwoWay}" />
+
+                <Button Command="{Binding EditPromptCommand}" ToolTip="{DynamicResource STranslate_Plugin_Translate_DeepSeek_EditPrompt_ToolTip}">
+                    <ui:IconAndText Content="{DynamicResource STranslate_Plugin_Translate_DeepSeek_EditPrompt_Content}" Icon="{x:Static ui:FluentSystemIcons.Edit_24_Regular}" />
+                </Button>
+            </ikw:SimpleStackPanel>
+        </ui:SettingsCard>
+
+        <!--  温度控制  -->
+        <ui:SettingsCard Description="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Temperature_Description}" Header="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Temperature}">
+            <ui:SettingsCard.HeaderIcon>
+                <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Temperature_20_Regular}" />
+            </ui:SettingsCard.HeaderIcon>
+
+            <ikw:SimpleStackPanel Orientation="Horizontal" Spacing="8">
+                <Slider
+                    x:Name="PART_TempSlider"
+                    MinWidth="200"
+                    IsSnapToTickEnabled="True"
+                    Maximum="2.0"
+                    Minimum="0.0"
+                    TickFrequency="0.1"
+                    TickPlacement="Both"
+                    Value="{Binding Temperature}" />
+
+                <TextBlock VerticalAlignment="Center" Text="{Binding ElementName=PART_TempSlider, Path=Value, StringFormat=F1}" />
+            </ikw:SimpleStackPanel>
+        </ui:SettingsCard>
+
+
+        <!--  连接验证  -->
+        <ui:SettingsCard Description="{DynamicResource PluginTranslateValidateDescription}" Header="{DynamicResource PluginTranslateValidate}">
+            <ui:SettingsCard.HeaderIcon>
+                <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.CheckmarkCircle_24_Regular}" />
+            </ui:SettingsCard.HeaderIcon>
+
+            <ikw:SimpleStackPanel Orientation="Horizontal" Spacing="12">
+                <Button Command="{Binding ValidateCommand}" Style="{StaticResource AccentButtonStyle}">
+                    <ui:IconAndText Content="{DynamicResource PluginTranslateValidate}" Icon="{x:Static ui:FluentSystemIcons.Play_24_Regular}" />
+                </Button>
+
+                <!--  验证结果显示  -->
+                <Border>
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="4" />
+                            <Setter Property="Padding" Value="8,4" />
+                            <Setter Property="Background" Value="{DynamicResource {x:Static ui:ThemeKeys.SystemFillColorAttentionBackgroundBrushKey}}" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ValidateResult}" Value="">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontSize="{DynamicResource STControlFontSize12}"
+                        Foreground="{DynamicResource SystemFillColorSuccessBrush}"
+                        Text="{Binding ValidateResult}" />
+                </Border>
+            </ikw:SimpleStackPanel>
+        </ui:SettingsCard>
+    </ikw:SimpleStackPanel>
+</UserControl>

@@ -1,0 +1,20 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url">Url</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url_Description">Configure the DeepSeek API service address.&#x0a;If the Path is not filled in, it will be automatically populated with /v1/chat/completions.&#x0a;For example, for the DeepSeek API address https://api.deepseek.com/chat/completions, the Path is /v1/chat/completions.</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey">ApiKey</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Placeholder">Please enter your apiKey</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Description">Enter your DeepSeek API key</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Model">Select a model</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Header">Prompt Configuration</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Description">Select or edit the prompt template for translation</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Placeholder">Select a prompt template</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_EditPrompt_ToolTip">Edit Prompt</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_EditPrompt_Content">Edit</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature">Temperature Control</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature_Description">Controls the randomness of the model's output</sys:String>
+
+</ResourceDictionary>
