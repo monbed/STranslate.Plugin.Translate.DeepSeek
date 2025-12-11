@@ -20,17 +20,17 @@ public class Settings
 
     public List<Prompt> Prompts { get; set; } =
     [
-        new("Translate",
+        new("翻译",
         [
             new PromptItem("system", "You are a professional, authentic translation engine. You only return the translated text, without any explanations."),
             new PromptItem("user", "Please translate  into $target (avoid explaining the original text):\r\n\r\n$content"),
         ], true),
-        new("Polish",
+        new("润色",
         [
             new PromptItem("system", "You are a professional, authentic text polishing engine. You only return the polished text, without any explanations."),
             new PromptItem("user", "Please polish the following text in $source (avoid explaining the original text):\r\n\r\n$content"),
         ]),
-        new("Summarize",
+        new("总结",
         [
             new PromptItem("system", "You are a professional, authentic text summarization engine. You only return the summarized text, without any explanations."),
             new PromptItem("user", "Please summarize the following text in $source (avoid explaining the original text):\r\n\r\n$content"),
