@@ -149,19 +149,26 @@ public class Main : LlmTranslatePluginBase
         // 温度限定
         var temperature = Math.Clamp(Settings.Temperature, 0, 2);
 
+        // 构建请求体，参考 DeepSeek API 文档，包含常用参数
         var content = new
         {
             model,
             messages,
             temperature,
-            stream = true
+            max_tokens = Settings.MaxTokens,
+            top_p = Settings.TopP,
+            n = Settings.N,
+            stream = Settings.Stream
         };
 
+        // 请求头，使用标准字段名并兼容流式返回
         var option = new Options
         {
             Headers = new Dictionary<string, string>
             {
-                { "authorization", "Bearer " + Settings.ApiKey }
+                { "Authorization", "Bearer " + Settings.ApiKey },
+                { "Content-Type", "application/json" },
+                { "Accept", "text/event-stream" }
             }
         };
 

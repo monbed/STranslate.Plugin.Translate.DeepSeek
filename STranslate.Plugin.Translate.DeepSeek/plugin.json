@@ -3,7 +3,7 @@
   "Name": "DeepSeek",
   "Description": "DeepSeek plugin for STranslate",
   "Author": "monbed",
-  "Version": "1.0.0",
+  "Version": "1.0.1",
   "Website": "https://github.com/monbed/STranslate.Plugin.Translate.DeepSeek",
   "ExecuteFileName": "STranslate.Plugin.Translate.DeepSeek.dll",
   "IconPath": "icon.png"

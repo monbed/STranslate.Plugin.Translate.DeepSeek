@@ -141,13 +141,24 @@ public partial class SettingsViewModel : ObservableObject, IDisposable
             // 温度限定
             var temperature = Math.Clamp(_settings.Temperature, 0, 2);
 
-            var content = new { model, messages, temperature, stream = true };
+            var content = new
+            {
+                model,
+                messages,
+                temperature,
+                max_tokens = _settings.MaxTokens,
+                top_p = _settings.TopP,
+                n = _settings.N,
+                stream = _settings.Stream
+            };
 
             var option = new Options
             {
                 Headers = new Dictionary<string, string>
                 {
-                    { "authorization", "Bearer " + _settings.ApiKey }
+                    { "Authorization", "Bearer " + _settings.ApiKey },
+                    { "Content-Type", "application/json" },
+                    { "Accept", "text/event-stream" }
                 }
             };
 
