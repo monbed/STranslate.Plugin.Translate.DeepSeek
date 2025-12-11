@@ -1,1 +1,3 @@
-适用于 STranslate 的 DeepSeek 插件
+## 更新
+
+- 提示词配置选项默认中文
