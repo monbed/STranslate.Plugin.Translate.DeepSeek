@@ -18,7 +18,7 @@
 3. 配置必要参数：
    - **API Key**：DeepSeek API 密钥（从 [DeepSeek 官网](https://www.deepseek.com) 获取）
    - **模型选择**：选择要使用的 DeepSeek 模型
-   - **其他参数**：根据需求调整温度、最大令牌数等参数
+   - **其他参数**：根据需求调整温度等参数
 
 ## 贡献
 
