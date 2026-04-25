@@ -25,6 +25,8 @@ public partial class SettingsViewModel : ObservableObject, IDisposable
         Model = _settings.Model;
         Models = new ObservableCollection<string>(_settings.Models);
         Temperature = _settings.Temperature;
+        Thinking = _settings.Thinking;
+        ReasoningEffort = _settings.ReasoningEffort;
 
         PropertyChanged += OnPropertyChanged;
         Models.CollectionChanged += OnModelsCollectionChanged;
@@ -58,6 +60,12 @@ public partial class SettingsViewModel : ObservableObject, IDisposable
                 // 舍入到一位小数，避免浮点精度问题
                 _settings.Temperature = Math.Round(Temperature, 1);
                 break;
+            case nameof(Thinking):
+                _settings.Thinking = Thinking;
+                break;
+            case nameof(ReasoningEffort):
+                _settings.ReasoningEffort = ReasoningEffort;
+                break;
             default:
                 return;
         }
@@ -70,6 +78,8 @@ public partial class SettingsViewModel : ObservableObject, IDisposable
     [ObservableProperty] public partial string? Model { get; set; }
     [ObservableProperty] public partial ObservableCollection<string> Models { get; set; }
     [ObservableProperty] public partial double Temperature { get; set; }
+    [ObservableProperty] public partial bool Thinking { get; set; }
+    [ObservableProperty] public partial string ReasoningEffort { get; set; }
 
     [RelayCommand]
     private void AddModel(string model)
@@ -141,16 +151,22 @@ public partial class SettingsViewModel : ObservableObject, IDisposable
             // 温度限定
             var temperature = Math.Clamp(_settings.Temperature, 0, 2);
 
-            var content = new
+            var content = new Dictionary<string, object>
             {
-                model,
-                messages,
-                temperature,
-                max_tokens = _settings.MaxTokens,
-                top_p = _settings.TopP,
-                n = _settings.N,
-                stream = _settings.Stream
+                ["model"] = model,
+                ["messages"] = messages,
+                ["temperature"] = temperature,
+                ["max_tokens"] = _settings.MaxTokens,
+                ["top_p"] = _settings.TopP,
+                ["stream"] = _settings.Stream,
+                ["frequency_penalty"] = _settings.FrequencyPenalty,
+                ["presence_penalty"] = _settings.PresencePenalty,
+                ["thinking"] = new { type = _settings.Thinking ? "enabled" : "disabled" },
             };
+
+            // 仅在思考模式开启时发送推理强度（关闭时发送会报错）
+            if (_settings.Thinking)
+                content["reasoning_effort"] = _settings.ReasoningEffort;
 
             var option = new Options
             {

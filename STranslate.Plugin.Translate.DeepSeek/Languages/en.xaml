@@ -16,5 +16,9 @@
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_EditPrompt_Content">Edit</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature">Temperature Control</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature_Description">Controls the randomness of the model's output</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking">Thinking Mode</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking_Description">When enabled, the model performs deep reasoning before answering</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort">Reasoning Effort</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort_Description">Controls reasoning depth. High is default, Max is for complex tasks</sys:String>
 
 </ResourceDictionary>

@@ -126,6 +126,32 @@
             </ikw:SimpleStackPanel>
         </ui:SettingsCard>
 
+        <!--  思考模式  -->
+        <ui:SettingsCard Description="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Thinking_Description}" Header="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Thinking}">
+            <ui:SettingsCard.HeaderIcon>
+                <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Thinking_20_Regular}" />
+            </ui:SettingsCard.HeaderIcon>
+
+            <ui:ToggleSwitch
+                IsOn="{Binding Thinking}"
+                OffContent="{DynamicResource Off}"
+                OnContent="{DynamicResource On}" />
+        </ui:SettingsCard>
+
+        <!--  推理强度（仅在思考模式开启时可用）  -->
+        <ui:SettingsCard Description="{DynamicResource STranslate_Plugin_Translate_DeepSeek_ReasoningEffort_Description}" Header="{DynamicResource STranslate_Plugin_Translate_DeepSeek_ReasoningEffort}" IsEnabled="{Binding Thinking}">
+            <ui:SettingsCard.HeaderIcon>
+                <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Gauge_24_Regular}" />
+            </ui:SettingsCard.HeaderIcon>
+
+            <ComboBox
+                MinWidth="120"
+                SelectedValue="{Binding ReasoningEffort, Mode=TwoWay}"
+                SelectedValuePath="Tag">
+                <ComboBoxItem Content="High" Tag="high" />
+                <ComboBoxItem Content="Max" Tag="max" />
+            </ComboBox>
+        </ui:SettingsCard>
 
         <!--  连接验证  -->
         <ui:SettingsCard Description="{DynamicResource PluginTranslateValidateDescription}" Header="{DynamicResource PluginTranslateValidate}">

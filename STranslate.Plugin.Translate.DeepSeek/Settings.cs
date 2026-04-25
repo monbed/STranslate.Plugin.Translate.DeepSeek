@@ -12,9 +12,18 @@ public class Settings
     ];
     public int MaxTokens { get; set; } = 2048;
     public double Temperature { get; set; } = 0.7;
-    public int TopP { get; set; } = 1;
-    public int N { get; set; } = 1;
+    public double TopP { get; set; } = 1;
     public bool Stream { get; set; } = true;
+    public double FrequencyPenalty { get; set; } = 0;
+    public double PresencePenalty { get; set; } = 0;
+    /// <summary>
+    /// 思考模式开关，默认开启
+    /// </summary>
+    public bool Thinking { get; set; } = true;
+    /// <summary>
+    /// 推理深度控制：high / max，默认 high
+    /// </summary>
+    public string ReasoningEffort { get; set; } = "high";
     public int? MaxRetries { get; set; } = 3;
     public int RetryDelayMilliseconds { get; set; } = 1000;
 

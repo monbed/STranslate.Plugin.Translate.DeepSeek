@@ -16,5 +16,9 @@
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_EditPrompt_Content">編輯</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature">溫度控制</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature_Description">控制模型輸出的隨機性</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking">思考模式</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking_Description">開啟後模型將進行深度推理再作答</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort">推理強度</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort_Description">控制模型的推理深度，high 為預設，max 適合複雜任務</sys:String>
 
 </ResourceDictionary>

@@ -149,17 +149,23 @@ public class Main : LlmTranslatePluginBase
         // 温度限定
         var temperature = Math.Clamp(Settings.Temperature, 0, 2);
 
-        // 构建请求体，参考 DeepSeek API 文档，包含常用参数
-        var content = new
+        // 构建请求体，参考 DeepSeek API 最新文档
+        var content = new Dictionary<string, object>
         {
-            model,
-            messages,
-            temperature,
-            max_tokens = Settings.MaxTokens,
-            top_p = Settings.TopP,
-            n = Settings.N,
-            stream = Settings.Stream
+            ["model"] = model,
+            ["messages"] = messages,
+            ["temperature"] = temperature,
+            ["max_tokens"] = Settings.MaxTokens,
+            ["top_p"] = Settings.TopP,
+            ["stream"] = Settings.Stream,
+            ["frequency_penalty"] = Settings.FrequencyPenalty,
+            ["presence_penalty"] = Settings.PresencePenalty,
+            ["thinking"] = new { type = Settings.Thinking ? "enabled" : "disabled" },
         };
+
+        // 仅在思考模式开启时发送推理强度（关闭时发送会报错）
+        if (Settings.Thinking)
+            content["reasoning_effort"] = Settings.ReasoningEffort;
 
         // 请求头，使用标准字段名并兼容流式返回
         var option = new Options
