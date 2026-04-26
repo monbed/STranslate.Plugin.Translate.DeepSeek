@@ -124,7 +124,6 @@ public class Main : LlmTranslatePluginBase
             return;
         }
 
-
         UriBuilder uriBuilder = new(Settings.Url);
         // 如果路径不是有效的API路径结尾，使用默认路径
         if (uriBuilder.Path == "/")
@@ -135,7 +134,7 @@ public class Main : LlmTranslatePluginBase
         model = string.IsNullOrEmpty(model) ? "deepseek-v4-flash" : model;
 
         // 替换Prompt关键字
-        var messages = (Prompts.FirstOrDefault(x => x.IsEnabled) ?? throw new Exception("请先完善Propmpt配置"))
+        var messages = (Prompts.FirstOrDefault(x => x.IsEnabled) ?? throw new Exception("请先完善Prompt配置"))
             .Clone()
             .Items;
         messages.ToList()
@@ -263,6 +262,6 @@ public class Main : LlmTranslatePluginBase
                 // * 适配OpenRouter等第三方服务流数据中包含与DeepSeek官方API中不同的数据
                 // * 如 ": OPENROUTER PROCESSING"
             }
-        },option , cancellationToken: cancellationToken);
+        }, option, cancellationToken: cancellationToken);
     }
 }
