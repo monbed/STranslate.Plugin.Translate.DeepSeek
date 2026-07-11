@@ -1,0 +1,28 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance">Bakiye</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Description">Geçerli API anahtarına ait hesabın kullanılabilir bakiyesini (hediye ve yüklenen bakiye dahil) sorgular</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Query">Sorgula</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Failed">Sorgulama başarısız</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url">Uç Nokta</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url_Description">DeepSeek API hizmet adresini yapılandırın.&#x0a;Yol boş bırakılırsa otomatik olarak /chat/completions eklenir.&#x0a;Örneğin, DeepSeek API adresi https://api.deepseek.com/chat/completions ise Yol /chat/completions olur.</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey">API Anahtarı</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Placeholder">Lütfen anahtarınızı girin</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Description">DeepSeek API anahtarınızı girin</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Model">Model seçin</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Header">İstem Yapılandırması</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Description">Çeviri için kullanılan istem şablonunu seçin veya düzenleyin</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Placeholder">Bir istem şablonu seçin</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_EditPrompt_ToolTip">İstemi düzenle</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_EditPrompt_Content">Düzenle</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature">Sıcaklık Kontrolü</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature_Description">Model çıktısının rastgeleliğini kontrol eder</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking">Düşünme Modu</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking_Description">Etkinleştirildiğinde model yanıt vermeden önce derinlemesine akıl yürütür</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort">Akıl Yürütme Yoğunluğu</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort_Description">Modelin akıl yürütme derinliğini kontrol eder. High varsayılan, Max karmaşık görevler içindir</sys:String>
+
+</ResourceDictionary>

@@ -165,7 +165,7 @@ public partial class SettingsViewModel : ObservableObject, IDisposable
                 ["thinking"] = new { type = _settings.Thinking ? "enabled" : "disabled" },
             };
 
-            // 仅在思考模式开启时发送推理强度（关闭时发送会报错）
+            // 推理强度仅在思考模式下有意义，关闭时不发送
             if (_settings.Thinking)
                 content["reasoning_effort"] = _settings.ReasoningEffort;
 

@@ -162,7 +162,7 @@ public class Main : LlmTranslatePluginBase
             ["thinking"] = new { type = Settings.Thinking ? "enabled" : "disabled" },
         };
 
-        // 仅在思考模式开启时发送推理强度（关闭时发送会报错）
+        // 推理强度仅在思考模式下有意义，关闭时不发送
         if (Settings.Thinking)
             content["reasoning_effort"] = Settings.ReasoningEffort;
 
@@ -182,7 +182,7 @@ public class Main : LlmTranslatePluginBase
 
         await Context.HttpService.StreamPostAsync(uriBuilder.Uri.ToString(), content, msg =>
         {
-            if (string.IsNullOrEmpty(msg?.Trim()))
+            if (string.IsNullOrEmpty(msg?.Trim()) || msg == ": OPENROUTER PROCESSING")
                 return;
 
             var preprocessString = msg.Replace("data:", "").Trim();
@@ -193,23 +193,6 @@ public class Main : LlmTranslatePluginBase
 
             try
             {
-                /**
-                 * 
-                 * var parsedData = JsonDocument.Parse(preprocessString);
-
-                if (parsedData is null)
-                    return;
-
-                var root = parsedData.RootElement;
-
-                // 提取 content 的值
-                var contentValue = root
-                    .GetProperty("choices")[0]
-                    .GetProperty("delta")
-                    .GetProperty("content")
-                    .GetString();
-                * 
-                 */
                 // 解析JSON数据
                 var parsedData = JsonNode.Parse(preprocessString);
 
@@ -224,7 +207,7 @@ public class Main : LlmTranslatePluginBase
 
                 /***********************************************************************
                  * 推理模型思考内容
-                 * 1. content字段内：Groq（推理后带有换行）(兼容think标签还带有换行情况)
+                 * 1. content字段内：部分服务商用 <think></think> 标签包裹（推理后带有换行）
                  * 2. reasoning_content字段内：DeepSeek、硅基流动（推理后带有换行）、第三方服务商
                  ************************************************************************/
 
@@ -259,8 +242,8 @@ public class Main : LlmTranslatePluginBase
             catch
             {
                 // Ignore
-                // * 适配OpenRouter等第三方服务流数据中包含与DeepSeek官方API中不同的数据
-                // * 如 ": OPENROUTER PROCESSING"
+                // * 适配 OpenRouter 等第三方服务流数据中包含与 DeepSeek 官方 API 不同的数据
+                // * 如 ": OPENROUTER PROCESSING"（已在回调开头显式过滤，此处兜底其他异常数据）
             }
         }, option, cancellationToken: cancellationToken);
     }

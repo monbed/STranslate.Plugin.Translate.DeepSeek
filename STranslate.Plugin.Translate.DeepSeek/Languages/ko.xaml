@@ -1,0 +1,28 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance">잔액</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Description">현재 API 키에 해당하는 계정의 사용 가능한 잔액(증정 및 충전 잔액 포함)을 조회합니다</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Query">조회</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Failed">조회 실패</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url">엔드포인트</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url_Description">DeepSeek API 서비스 주소를 설정합니다.&#x0a;경로를 입력하지 않으면 자동으로 /chat/completions 가 채워집니다.&#x0a;예: DeepSeek API 주소가 https://api.deepseek.com/chat/completions 인 경우 경로는 /chat/completions 입니다.</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey">API 키</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Placeholder">키를 입력하세요</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Description">DeepSeek API 키를 입력하세요</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Model">모델 선택</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Header">프롬프트 설정</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Description">번역에 사용할 프롬프트 템플릿을 선택하거나 편집합니다</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Placeholder">프롬프트 템플릿 선택</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_EditPrompt_ToolTip">프롬프트 편집</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_EditPrompt_Content">편집</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature">온도 조절</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature_Description">모델 출력의 무작위성을 제어합니다</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking">사고 모드</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking_Description">활성화하면 모델이 깊이 추론한 후 답변합니다</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort">추론 강도</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort_Description">모델의 추론 깊이를 제어합니다. high 가 기본값, max 는 복잡한 작업에 적합합니다</sys:String>
+
+</ResourceDictionary>

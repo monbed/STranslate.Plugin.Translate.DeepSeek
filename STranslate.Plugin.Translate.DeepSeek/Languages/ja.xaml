@@ -1,0 +1,28 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance">残高</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Description">現在の API キーに対応するアカウントの利用可能残高（付与分とチャージ分を含む）を照会します</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Query">照会</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Failed">照会に失敗しました</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url">エンドポイント</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url_Description">DeepSeek API のサービスアドレスを設定します。&#x0a;パスが未入力の場合は自動的に /chat/completions が補完されます。&#x0a;例：DeepSeek の API アドレスが https://api.deepseek.com/chat/completions の場合、パスは /chat/completions です。</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey">API キー</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Placeholder">キーを入力してください</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Description">DeepSeek の API キーを入力してください</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Model">モデルを選択</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Header">プロンプト設定</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Description">翻訳に使用するプロンプトテンプレートを選択または編集します</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Placeholder">プロンプトテンプレートを選択</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_EditPrompt_ToolTip">プロンプトを編集</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_EditPrompt_Content">編集</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature">温度設定</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature_Description">モデル出力のランダム性を制御します</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking">思考モード</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking_Description">有効にすると、モデルは深く推論してから回答します</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort">推論の強度</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort_Description">モデルの推論の深さを制御します。high が既定、max は複雑なタスク向けです</sys:String>
+
+</ResourceDictionary>
