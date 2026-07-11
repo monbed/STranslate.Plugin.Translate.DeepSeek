@@ -30,7 +30,7 @@ public class Settings
         new("翻译",
         [
             new PromptItem("system", "You are a professional, authentic translation engine. You only return the translated text, without any explanations."),
-            new PromptItem("user", "Please translate  into $target (avoid explaining the original text):\r\n\r\n$content"),
+            new PromptItem("user", "Please translate the following text into $target (avoid explaining the original text):\r\n\r\n$content"),
         ], true),
         new("润色",
         [
