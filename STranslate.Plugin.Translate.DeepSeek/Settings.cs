@@ -14,8 +14,6 @@ public class Settings
     public double Temperature { get; set; } = 0.7;
     public double TopP { get; set; } = 1;
     public bool Stream { get; set; } = true;
-    public double FrequencyPenalty { get; set; } = 0;
-    public double PresencePenalty { get; set; } = 0;
     /// <summary>
     /// 思考模式开关，默认开启
     /// </summary>

@@ -8,6 +8,10 @@
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey">ApiKey</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Placeholder">Please enter your apiKey</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Description">Enter your DeepSeek API key</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance">Balance</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Description">Query the available balance of the account for the current API key (including granted and topped-up balance)</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Query">Query</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Failed">Query failed</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Model">Select a model</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Header">Prompt Configuration</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Description">Select or edit the prompt template for translation</sys:String>

@@ -39,6 +39,40 @@
                 ui:ControlHelper.PlaceholderText="{DynamicResource STranslate_Plugin_Translate_DeepSeek_ApiKey_Placeholder}" />
         </ui:SettingsCard>
 
+        <!--  余额查询  -->
+        <ui:SettingsCard Description="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Balance_Description}" Header="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Balance}">
+            <ui:SettingsCard.HeaderIcon>
+                <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Wallet_24_Regular}" />
+            </ui:SettingsCard.HeaderIcon>
+
+            <ikw:SimpleStackPanel Orientation="Horizontal" Spacing="12">
+                <Button Command="{Binding QueryBalanceCommand}">
+                    <ui:IconAndText Content="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Balance_Query}" Icon="{x:Static ui:FluentSystemIcons.Wallet_24_Regular}" />
+                </Button>
+
+                <!--  余额结果显示  -->
+                <Border>
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="4" />
+                            <Setter Property="Padding" Value="8,4" />
+                            <Setter Property="Background" Value="{DynamicResource {x:Static ui:ThemeKeys.SystemFillColorAttentionBackgroundBrushKey}}" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding BalanceResult}" Value="">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontSize="{DynamicResource STControlFontSize12}"
+                        Foreground="{DynamicResource SystemFillColorSuccessBrush}"
+                        Text="{Binding BalanceResult}" />
+                </Border>
+            </ikw:SimpleStackPanel>
+        </ui:SettingsCard>
+
         <!--  Model 配置  -->
         <ui:SettingsCard Header="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Model}">
             <ui:SettingsCard.HeaderIcon>

@@ -157,8 +157,6 @@ public class Main : LlmTranslatePluginBase
             ["max_tokens"] = Settings.MaxTokens,
             ["top_p"] = Settings.TopP,
             ["stream"] = Settings.Stream,
-            ["frequency_penalty"] = Settings.FrequencyPenalty,
-            ["presence_penalty"] = Settings.PresencePenalty,
             ["thinking"] = new { type = Settings.Thinking ? "enabled" : "disabled" },
         };
 

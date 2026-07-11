@@ -4,6 +4,8 @@ using Microsoft.Extensions.Logging;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Text.Json.Nodes;
+using System.Windows;
 
 namespace STranslate.Plugin.Translate.DeepSeek.ViewModel;
 
@@ -73,6 +75,7 @@ public partial class SettingsViewModel : ObservableObject, IDisposable
     }
 
     [ObservableProperty] public partial string ValidateResult { get; set; } = string.Empty;
+    [ObservableProperty] public partial string BalanceResult { get; set; } = string.Empty;
     [ObservableProperty] public partial string Url { get; set; }
     [ObservableProperty] public partial string ApiKey { get; set; }
     [ObservableProperty] public partial string? Model { get; set; }
@@ -159,8 +162,6 @@ public partial class SettingsViewModel : ObservableObject, IDisposable
                 ["max_tokens"] = _settings.MaxTokens,
                 ["top_p"] = _settings.TopP,
                 ["stream"] = _settings.Stream,
-                ["frequency_penalty"] = _settings.FrequencyPenalty,
-                ["presence_penalty"] = _settings.PresencePenalty,
                 ["thinking"] = new { type = _settings.Thinking ? "enabled" : "disabled" },
             };
 
@@ -188,6 +189,42 @@ public partial class SettingsViewModel : ObservableObject, IDisposable
             _context.Logger.LogError(ex, _context.GetTranslation("ValidationFailure"));
         }
     }
+
+    [RelayCommand]
+    public async Task QueryBalanceAsync()
+    {
+        try
+        {
+            // 余额接口固定为 /user/balance，与聊天接口同源
+            UriBuilder uriBuilder = new(_settings.Url) { Path = "/user/balance", Query = string.Empty };
+
+            var option = new Options
+            {
+                Headers = new Dictionary<string, string>
+                {
+                    { "Authorization", "Bearer " + _settings.ApiKey },
+                    { "Accept", "application/json" }
+                }
+            };
+
+            var resp = await _context.HttpService.GetAsync(uriBuilder.Uri.ToString(), option);
+
+            // 响应结构见 https://api-docs.deepseek.com/zh-cn/api/get-user-balance
+            var infos = JsonNode.Parse(resp)?["balance_infos"]?.AsArray()
+                ?? throw new Exception($"Unexpected response: {resp}");
+
+            var text = string.Join("  ", infos.Select(i => $"{i?["total_balance"]} {i?["currency"]}"));
+            BalanceResult = string.IsNullOrEmpty(text) ? GetResourceString("STranslate_Plugin_Translate_DeepSeek_Balance_Failed", "查询失败") : text;
+        }
+        catch (Exception ex)
+        {
+            BalanceResult = GetResourceString("STranslate_Plugin_Translate_DeepSeek_Balance_Failed", "查询失败");
+            _context.Logger.LogError(ex, "Query DeepSeek balance failed");
+        }
+    }
+
+    private static string GetResourceString(string key, string fallback) =>
+        Application.Current?.TryFindResource(key) as string ?? fallback;
 
     public void Dispose()
     {
