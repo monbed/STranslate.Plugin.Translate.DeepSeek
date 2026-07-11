@@ -16,29 +16,6 @@
     mc:Ignorable="d">
 
     <ikw:SimpleStackPanel Spacing="12">
-        <!--  API URL 配置  -->
-        <ui:SettingsCard Description="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Url_Description}" Header="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Url}">
-            <ui:SettingsCard.HeaderIcon>
-                <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Globe_24_Regular}" />
-            </ui:SettingsCard.HeaderIcon>
-            <TextBox
-                MinWidth="300"
-                ui:ControlHelper.PlaceholderText="https://api.deepseek.com"
-                Text="{Binding Url}" />
-        </ui:SettingsCard>
-
-        <!--  API Key 配置  -->
-        <ui:SettingsCard Description="{DynamicResource STranslate_Plugin_Translate_DeepSeek_ApiKey_Description}" Header="{DynamicResource STranslate_Plugin_Translate_DeepSeek_ApiKey}">
-            <ui:SettingsCard.HeaderIcon>
-                <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Key_24_Regular}" />
-            </ui:SettingsCard.HeaderIcon>
-            <PasswordBox
-                MinWidth="300"
-                plugin:PasswordBoxAssistant.Attach="True"
-                plugin:PasswordBoxAssistant.Password="{Binding ApiKey}"
-                ui:ControlHelper.PlaceholderText="{DynamicResource STranslate_Plugin_Translate_DeepSeek_ApiKey_Placeholder}" />
-        </ui:SettingsCard>
-
         <!--  余额查询  -->
         <ui:SettingsCard Description="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Balance_Description}" Header="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Balance}">
             <ui:SettingsCard.HeaderIcon>
@@ -71,6 +48,29 @@
                         Text="{Binding BalanceResult}" />
                 </Border>
             </ikw:SimpleStackPanel>
+        </ui:SettingsCard>
+
+        <!--  API URL 配置  -->
+        <ui:SettingsCard Description="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Url_Description}" Header="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Url}">
+            <ui:SettingsCard.HeaderIcon>
+                <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Globe_24_Regular}" />
+            </ui:SettingsCard.HeaderIcon>
+            <TextBox
+                MinWidth="300"
+                ui:ControlHelper.PlaceholderText="https://api.deepseek.com"
+                Text="{Binding Url}" />
+        </ui:SettingsCard>
+
+        <!--  API Key 配置  -->
+        <ui:SettingsCard Description="{DynamicResource STranslate_Plugin_Translate_DeepSeek_ApiKey_Description}" Header="{DynamicResource STranslate_Plugin_Translate_DeepSeek_ApiKey}">
+            <ui:SettingsCard.HeaderIcon>
+                <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Key_24_Regular}" />
+            </ui:SettingsCard.HeaderIcon>
+            <PasswordBox
+                MinWidth="300"
+                plugin:PasswordBoxAssistant.Attach="True"
+                plugin:PasswordBoxAssistant.Password="{Binding ApiKey}"
+                ui:ControlHelper.PlaceholderText="{DynamicResource STranslate_Plugin_Translate_DeepSeek_ApiKey_Placeholder}" />
         </ui:SettingsCard>
 
         <!--  Model 配置  -->
