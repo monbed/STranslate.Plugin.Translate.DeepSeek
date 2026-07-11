@@ -8,7 +8,7 @@
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Query">조회</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Failed">조회 실패</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url">엔드포인트</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url_Description">DeepSeek API 서비스 주소를 설정합니다.&#x0a;경로를 입력하지 않으면 자동으로 /chat/completions 가 채워집니다.&#x0a;예: DeepSeek API 주소가 https://api.deepseek.com/chat/completions 인 경우 경로는 /chat/completions 입니다.</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url_Description">DeepSeek API 서비스 주소를 설정합니다.&#x0a;경로를 입력하지 않으면 자동으로 /chat/completions 가 채워집니다.&#x0a;예: DeepSeek API 주소가 https://api.deepseek.com/chat/completions 인 경우 경로는 /chat/completions 입니다.&#x0a;# 로 끝나면 입력한 주소를 그대로 사용합니다.</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey">API 키</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Placeholder">키를 입력하세요</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Description">DeepSeek API 키를 입력하세요</sys:String>

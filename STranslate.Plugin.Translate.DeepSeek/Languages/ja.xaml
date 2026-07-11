@@ -8,7 +8,7 @@
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Query">照会</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Failed">照会に失敗しました</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url">エンドポイント</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url_Description">DeepSeek API のサービスアドレスを設定します。&#x0a;パスが未入力の場合は自動的に /chat/completions が補完されます。&#x0a;例：DeepSeek の API アドレスが https://api.deepseek.com/chat/completions の場合、パスは /chat/completions です。</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url_Description">DeepSeek API のサービスアドレスを設定します。&#x0a;パスが未入力の場合は自動的に /chat/completions が補完されます。&#x0a;例：DeepSeek の API アドレスが https://api.deepseek.com/chat/completions の場合、パスは /chat/completions です。&#x0a;# で終わる場合は入力したアドレスをそのまま使用します。</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey">API キー</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Placeholder">キーを入力してください</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Description">DeepSeek の API キーを入力してください</sys:String>

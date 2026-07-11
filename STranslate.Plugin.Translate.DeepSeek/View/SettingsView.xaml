@@ -55,10 +55,18 @@
             <ui:SettingsCard.HeaderIcon>
                 <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Globe_24_Regular}" />
             </ui:SettingsCard.HeaderIcon>
-            <TextBox
-                MinWidth="300"
-                ui:ControlHelper.PlaceholderText="https://api.deepseek.com"
-                Text="{Binding Url}" />
+            <ikw:SimpleStackPanel Orientation="Vertical" Spacing="8">
+                <TextBox
+                    x:Name="PART_UrlTb"
+                    MinWidth="300"
+                    ui:ControlHelper.PlaceholderText="https://api.deepseek.com"
+                    Text="{Binding Url}" />
+                <TextBlock
+                    FontSize="{DynamicResource STControlFontSize12}"
+                    Foreground="{DynamicResource {x:Static ui:ThemeKeys.SystemFillColorNeutralBrushKey}}"
+                    Text="{Binding ElementName=PART_UrlTb, Path=Text, Converter={plugin:UrlToFinalUrlConverter Rule=Strict, Path=/chat/completions}}"
+                    ToolTip="{DynamicResource Url_ToolTip}" />
+            </ikw:SimpleStackPanel>
         </ui:SettingsCard>
 
         <!--  API Key 配置  -->

@@ -8,7 +8,7 @@
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Query">查詢</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Failed">查詢失敗</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url">網址</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url_Description">配置 DeepSeek API 服務地址&#x0a;接口API地址不填寫Path內容則自動填充 /chat/completions&#x0a;如DeepSeek接口地址為 https://api.deepseek.com/chat/completions 其中 Path 為 /chat/completions</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url_Description">配置 DeepSeek API 服務地址&#x0a;接口API地址不填寫Path內容則自動填充 /chat/completions&#x0a;如DeepSeek接口地址為 https://api.deepseek.com/chat/completions 其中 Path 為 /chat/completions&#x0a;以 # 結尾則強制使用填寫的地址</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey">API 金鑰</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Placeholder">請輸入金鑰</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Description">輸入您的 DeepSeek API 金鑰</sys:String>

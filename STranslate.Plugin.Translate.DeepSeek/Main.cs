@@ -126,10 +126,8 @@ public class Main : LlmTranslatePluginBase
             return;
         }
 
-        UriBuilder uriBuilder = new(Settings.Url);
-        // 如果路径不是有效的API路径结尾，使用默认路径
-        if (uriBuilder.Path == "/")
-            uriBuilder.Path = "/chat/completions";
+        // 构建最终URL（Path 留空时自动补全官方端点 /chat/completions，# 结尾强制使用原样地址）
+        var url = UrlHelper.BuildFinalUrl(Settings.Url, "/chat/completions", UrlPathMatchRule.Strict);
 
         // 选择模型
         var model = Settings.Model.Trim();
@@ -180,9 +178,9 @@ public class Main : LlmTranslatePluginBase
         StringBuilder sb = new();
         var isThink = false;
 
-        await Context.HttpService.StreamPostAsync(uriBuilder.Uri.ToString(), content, msg =>
+        await Context.HttpService.StreamPostAsync(url, content, msg =>
         {
-            if (string.IsNullOrEmpty(msg?.Trim()) || msg == ": OPENROUTER PROCESSING")
+            if (string.IsNullOrEmpty(msg?.Trim()))
                 return;
 
             var preprocessString = msg.Replace("data:", "").Trim();
@@ -243,7 +241,7 @@ public class Main : LlmTranslatePluginBase
             {
                 // Ignore
                 // * 适配 OpenRouter 等第三方服务流数据中包含与 DeepSeek 官方 API 不同的数据
-                // * 如 ": OPENROUTER PROCESSING"（已在回调开头显式过滤，此处兜底其他异常数据）
+                // * 如 ": OPENROUTER PROCESSING"，非 JSON 行解析失败时在此兜底忽略
             }
         }, option, cancellationToken: cancellationToken);
     }

@@ -8,7 +8,7 @@
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Query">Query</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Failed">Query failed</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url">URL</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url_Description">Configure the DeepSeek API service address.&#x0a;If the Path is not filled in, it will be automatically populated with /chat/completions.&#x0a;For example, for the DeepSeek API address https://api.deepseek.com/chat/completions, the Path is /chat/completions.</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url_Description">Configure the DeepSeek API service address.&#x0a;If the Path is not filled in, it will be automatically populated with /chat/completions.&#x0a;For example, for the DeepSeek API address https://api.deepseek.com/chat/completions, the Path is /chat/completions.&#x0a;End with # to force the exact address as entered.</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey">ApiKey</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Placeholder">Please enter your API key</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Description">Enter your DeepSeek API key</sys:String>

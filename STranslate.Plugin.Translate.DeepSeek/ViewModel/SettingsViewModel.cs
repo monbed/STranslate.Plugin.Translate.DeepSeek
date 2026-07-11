@@ -131,10 +131,8 @@ public partial class SettingsViewModel : ObservableObject, IDisposable
     {
         try
         {
-            UriBuilder uriBuilder = new(_settings.Url);
-            // 如果路径不是有效的API路径结尾，使用默认路径
-            if (uriBuilder.Path == "/")
-                uriBuilder.Path = "/chat/completions";
+            // 构建最终URL（Path 留空时自动补全官方端点 /chat/completions，# 结尾强制使用原样地址）
+            var url = UrlHelper.BuildFinalUrl(_settings.Url, "/chat/completions", UrlPathMatchRule.Strict);
 
             // 选择模型
             var model = _settings.Model.Trim();
@@ -179,7 +177,7 @@ public partial class SettingsViewModel : ObservableObject, IDisposable
                 }
             };
 
-            await _context.HttpService.StreamPostAsync(uriBuilder.Uri.ToString(), content, (x) => { }, option);
+            await _context.HttpService.StreamPostAsync(url, content, (x) => { }, option);
 
             ValidateResult = _context.GetTranslation("ValidationSuccess");
         }
@@ -195,8 +193,8 @@ public partial class SettingsViewModel : ObservableObject, IDisposable
     {
         try
         {
-            // 余额接口固定为 /user/balance，与聊天接口同源
-            UriBuilder uriBuilder = new(_settings.Url) { Path = "/user/balance", Query = string.Empty };
+            // 余额接口固定为 /user/balance，与聊天接口同源（兼容 # 结尾的强制地址写法）
+            UriBuilder uriBuilder = new(_settings.Url.TrimEnd().TrimEnd('#')) { Path = "/user/balance", Query = string.Empty };
 
             var option = new Options
             {

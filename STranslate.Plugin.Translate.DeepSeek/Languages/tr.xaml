@@ -8,7 +8,7 @@
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Query">Sorgula</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Failed">Sorgulama başarısız</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url">Uç Nokta</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url_Description">DeepSeek API hizmet adresini yapılandırın.&#x0a;Yol boş bırakılırsa otomatik olarak /chat/completions eklenir.&#x0a;Örneğin, DeepSeek API adresi https://api.deepseek.com/chat/completions ise Yol /chat/completions olur.</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url_Description">DeepSeek API hizmet adresini yapılandırın.&#x0a;Yol boş bırakılırsa otomatik olarak /chat/completions eklenir.&#x0a;Örneğin, DeepSeek API adresi https://api.deepseek.com/chat/completions ise Yol /chat/completions olur.&#x0a;# ile biterse girilen adres olduğu gibi kullanılır.</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey">API Anahtarı</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Placeholder">Lütfen anahtarınızı girin</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Description">DeepSeek API anahtarınızı girin</sys:String>
