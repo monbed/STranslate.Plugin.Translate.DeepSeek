@@ -3,15 +3,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance">余额查询</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Description">查询当前 API 密钥对应账户的可用余额（含赠金与充值余额）</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Query">查询</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Failed">查询失败</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url">接口</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url_Description">配置 DeepSeek API 服务地址&#x0a;接口API地址不填写Path内容则自动填充 /v1/chat/completions&#x0a;如DeepSeek接口地址为 https://api.deepseek.com/v1/chat/completions 其中 Path 为 /v1/chat/completions</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey">密钥</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Placeholder">请输入密钥</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Description">输入您的 DeepSeek API 密钥</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance">余额查询</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Description">查询当前 API 密钥对应账户的可用余额（含赠金与充值余额）</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Query">查询</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Failed">查询失败</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Model">请选择模型</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Header">提示词配置</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Description">选择或编辑翻译使用的提示词模板</sys:String>
