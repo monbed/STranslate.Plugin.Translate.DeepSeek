@@ -53,7 +53,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="STranslate.Plugin" Version="1.0.5" />
+        <PackageReference Include="STranslate.Plugin" Version="1.0.13" />
     </ItemGroup>
 
 </Project>
