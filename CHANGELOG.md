@@ -7,3 +7,11 @@
 ## 修复
 
 - 清理模板遗留的死代码与不准确注释
+- 翻译请求失败时按 MaxRetries / RetryDelayMilliseconds 配置自动重试（此前配置项定义但未生效）
+- 流式响应仅清理行首的 data: 前缀，避免误删 JSON 字符串值中出现的 "data:"
+- 流式数据行解析失败时记录调试日志，便于排查第三方服务兼容问题
+
+## 优化
+
+- "验证"按钮限制 max_tokens 不超过 128，减少验证时的 token 消耗
+- 验证请求的 $source / $target 占位符替换值与实际翻译保持一致（English / Simplified Chinese）

@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 using STranslate.Plugin.Translate.DeepSeek.View;
 using STranslate.Plugin.Translate.DeepSeek.ViewModel;
 using System.Text;
@@ -178,12 +179,54 @@ public class Main : LlmTranslatePluginBase
         StringBuilder sb = new();
         var isThink = false;
 
-        await Context.HttpService.StreamPostAsync(url, content, msg =>
+        // 网络抖动、限流等瞬时故障按配置重试；MaxRetries 为 null 或 <= 0 时不重试
+        var maxAttempts = Math.Max(0, Settings.MaxRetries ?? 0) + 1;
+        var retryDelay = Math.Max(0, Settings.RetryDelayMilliseconds);
+
+        for (var attempt = 1; ; attempt++)
         {
-            if (string.IsNullOrEmpty(msg?.Trim()))
+            if (attempt > 1)
+            {
+                Context.Logger.LogWarning(
+                    "DeepSeek request failed, retrying ({Attempt}/{MaxAttempts}) after {Delay}ms",
+                    attempt, maxAttempts, retryDelay);
+                await Task.Delay(retryDelay, cancellationToken);
+
+                // 重置累积状态，避免重试后译文重复拼接
+                sb.Clear();
+                isThink = false;
+                result.Text = string.Empty;
+            }
+
+            try
+            {
+                await StreamOnceAsync(url, content, option, result, sb, () => isThink, v => isThink = v, cancellationToken);
+                return;
+            }
+            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+            {
+                throw;
+            }
+            catch when (attempt < maxAttempts)
+            {
+                // 还有重试次数，继续循环
+            }
+        }
+    }
+
+    private Task StreamOnceAsync(string url, Dictionary<string, object> content, Options option, TranslateResult result,
+        StringBuilder sb, Func<bool> getIsThink, Action<bool> setIsThink, CancellationToken cancellationToken)
+    {
+        return Context.HttpService.StreamPostAsync(url, content, msg =>
+        {
+            if (string.IsNullOrWhiteSpace(msg))
                 return;
 
-            var preprocessString = msg.Replace("data:", "").Trim();
+            // 仅去掉行首的 data: 前缀，避免误删 JSON 字符串值中出现的 "data:"
+            var trimmed = msg.TrimStart();
+            var preprocessString = trimmed.StartsWith("data:")
+                ? trimmed["data:".Length..].Trim()
+                : trimmed.Trim();
 
             // 结束标记
             if (preprocessString.Equals("[DONE]"))
@@ -212,15 +255,15 @@ public class Main : LlmTranslatePluginBase
                 #region 针对content内容中含有推理内容的优化
 
                 if (contentValue.Trim() == "<think>")
-                    isThink = true;
+                    setIsThink(true);
                 if (contentValue.Trim() == "</think>")
                 {
-                    isThink = false;
+                    setIsThink(false);
                     // 跳过当前内容
                     return;
                 }
 
-                if (isThink)
+                if (getIsThink())
                     return;
 
                 #endregion
@@ -242,6 +285,7 @@ public class Main : LlmTranslatePluginBase
                 // Ignore
                 // * 适配 OpenRouter 等第三方服务流数据中包含与 DeepSeek 官方 API 不同的数据
                 // * 如 ": OPENROUTER PROCESSING"，非 JSON 行解析失败时在此兜底忽略
+                Context.Logger.LogDebug("Skipped non-JSON stream line: {Line}", preprocessString);
             }
         }, option, cancellationToken: cancellationToken);
     }

@@ -143,9 +143,10 @@ public partial class SettingsViewModel : ObservableObject, IDisposable
             var messages = prompt.Clone().Items;
             foreach (var item in messages)
             {
+                // 与实际翻译时一致，替换为自然语言名称而非语言代码
                 item.Content = item.Content
-                    .Replace("$source", "en-US")
-                    .Replace("$target", "zh-CN")
+                    .Replace("$source", "English")
+                    .Replace("$target", "Simplified Chinese")
                     .Replace("$content", "Hello world");
             }
 
@@ -157,7 +158,8 @@ public partial class SettingsViewModel : ObservableObject, IDisposable
                 ["model"] = model,
                 ["messages"] = messages,
                 ["temperature"] = temperature,
-                ["max_tokens"] = _settings.MaxTokens,
+                // 验证只需确认连通性与鉴权，限制返回长度避免消耗用户 token
+                ["max_tokens"] = Math.Min(_settings.MaxTokens, 128),
                 ["top_p"] = _settings.TopP,
                 ["stream"] = _settings.Stream,
                 ["thinking"] = new { type = _settings.Thinking ? "enabled" : "disabled" },
