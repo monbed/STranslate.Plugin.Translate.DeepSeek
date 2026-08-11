@@ -26,6 +26,7 @@ public partial class SettingsViewModel : ObservableObject, IDisposable
         ApiKey = _settings.ApiKey;
         Model = _settings.Model;
         Models = new ObservableCollection<string>(_settings.Models);
+        MaxTokens = _settings.MaxTokens;
         Temperature = _settings.Temperature;
         Thinking = _settings.Thinking;
         ReasoningEffort = _settings.ReasoningEffort;
@@ -58,6 +59,10 @@ public partial class SettingsViewModel : ObservableObject, IDisposable
             case nameof(Model):
                 _settings.Model = Model ?? string.Empty;
                 break;
+            case nameof(MaxTokens):
+                // NumberBox 清空/非法输入时绑定不更新，这里只兜底下限
+                _settings.MaxTokens = Math.Max(1, MaxTokens);
+                break;
             case nameof(Temperature):
                 // 舍入到一位小数，避免浮点精度问题
                 _settings.Temperature = Math.Round(Temperature, 1);
@@ -80,6 +85,7 @@ public partial class SettingsViewModel : ObservableObject, IDisposable
     [ObservableProperty] public partial string ApiKey { get; set; }
     [ObservableProperty] public partial string? Model { get; set; }
     [ObservableProperty] public partial ObservableCollection<string> Models { get; set; }
+    [ObservableProperty] public partial int MaxTokens { get; set; }
     [ObservableProperty] public partial double Temperature { get; set; }
     [ObservableProperty] public partial bool Thinking { get; set; }
     [ObservableProperty] public partial string ReasoningEffort { get; set; }

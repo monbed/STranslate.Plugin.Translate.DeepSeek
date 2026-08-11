@@ -18,8 +18,12 @@
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Placeholder">プロンプトテンプレートを選択</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_EditPrompt_ToolTip">プロンプトを編集</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_EditPrompt_Content">編集</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ModelParams">モデルパラメータ</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ModelParams_Description">温度・最大出力・思考モードなどの生成パラメータ</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature">温度設定</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature_Description">モデル出力のランダム性を制御します</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_MaxTokens">最大出力トークン</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_MaxTokens_Description">1 回の応答で生成できる最大トークン数</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking">思考モード</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking_Description">有効にすると、モデルは深く推論してから回答します</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort">推論の強度</sys:String>

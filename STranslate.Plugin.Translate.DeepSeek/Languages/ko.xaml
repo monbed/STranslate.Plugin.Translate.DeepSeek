@@ -18,8 +18,12 @@
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Placeholder">프롬프트 템플릿 선택</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_EditPrompt_ToolTip">프롬프트 편집</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_EditPrompt_Content">편집</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ModelParams">모델 매개변수</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ModelParams_Description">온도, 최대 출력, 사고 모드 등 생성 매개변수</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature">온도 조절</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature_Description">모델 출력의 무작위성을 제어합니다</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_MaxTokens">최대 출력 토큰</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_MaxTokens_Description">한 번의 응답에서 생성할 수 있는 최대 토큰 수</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking">사고 모드</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking_Description">활성화하면 모델이 깊이 추론한 후 답변합니다</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort">추론 강도</sys:String>

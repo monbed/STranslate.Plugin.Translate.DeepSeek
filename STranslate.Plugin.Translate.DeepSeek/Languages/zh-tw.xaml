@@ -18,8 +18,12 @@
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Placeholder">選擇提示詞範本</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_EditPrompt_ToolTip">編輯提示詞</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_EditPrompt_Content">編輯</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ModelParams">模型參數</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ModelParams_Description">溫度、最大輸出、思考模式等生成參數</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature">溫度控制</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature_Description">控制模型輸出的隨機性</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_MaxTokens">最大輸出</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_MaxTokens_Description">單次回覆可生成的最大 Token 數</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking">思考模式</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking_Description">開啟後模型將進行深度推理再作答</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort">推理強度</sys:String>

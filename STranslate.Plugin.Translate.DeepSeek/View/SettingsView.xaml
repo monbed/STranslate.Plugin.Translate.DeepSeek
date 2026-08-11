@@ -147,53 +147,79 @@
             </ikw:SimpleStackPanel>
         </ui:SettingsCard>
 
-        <!--  温度控制  -->
-        <ui:SettingsCard Description="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Temperature_Description}" Header="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Temperature}">
-            <ui:SettingsCard.HeaderIcon>
-                <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Temperature_20_Regular}" />
-            </ui:SettingsCard.HeaderIcon>
+        <!--  模型参数（折叠分组：温度 / 最大输出 / 思考模式 / 推理强度）  -->
+        <ui:SettingsExpander Description="{DynamicResource STranslate_Plugin_Translate_DeepSeek_ModelParams_Description}" Header="{DynamicResource STranslate_Plugin_Translate_DeepSeek_ModelParams}">
+            <ui:SettingsExpander.HeaderIcon>
+                <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Options_24_Regular}" />
+            </ui:SettingsExpander.HeaderIcon>
+            <ui:SettingsExpander.Items>
 
-            <ikw:SimpleStackPanel Orientation="Horizontal" Spacing="8">
-                <Slider
-                    x:Name="PART_TempSlider"
-                    MinWidth="200"
-                    IsSnapToTickEnabled="True"
-                    Maximum="2.0"
-                    Minimum="0.0"
-                    TickFrequency="0.1"
-                    TickPlacement="Both"
-                    Value="{Binding Temperature}" />
+                <!--  温度控制  -->
+                <ui:SettingsCard Description="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Temperature_Description}" Header="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Temperature}">
+                    <ui:SettingsCard.HeaderIcon>
+                        <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Temperature_20_Regular}" />
+                    </ui:SettingsCard.HeaderIcon>
 
-                <TextBlock VerticalAlignment="Center" Text="{Binding ElementName=PART_TempSlider, Path=Value, StringFormat=F1}" />
-            </ikw:SimpleStackPanel>
-        </ui:SettingsCard>
+                    <ikw:SimpleStackPanel Orientation="Horizontal" Spacing="8">
+                        <Slider
+                            x:Name="PART_TempSlider"
+                            MinWidth="200"
+                            IsSnapToTickEnabled="True"
+                            Maximum="2.0"
+                            Minimum="0.0"
+                            TickFrequency="0.1"
+                            TickPlacement="Both"
+                            Value="{Binding Temperature}" />
 
-        <!--  思考模式  -->
-        <ui:SettingsCard Description="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Thinking_Description}" Header="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Thinking}">
-            <ui:SettingsCard.HeaderIcon>
-                <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Thinking_20_Regular}" />
-            </ui:SettingsCard.HeaderIcon>
+                        <TextBlock VerticalAlignment="Center" Text="{Binding ElementName=PART_TempSlider, Path=Value, StringFormat=F1}" />
+                    </ikw:SimpleStackPanel>
+                </ui:SettingsCard>
 
-            <ui:ToggleSwitch
-                IsOn="{Binding Thinking}"
-                OffContent="{DynamicResource Off}"
-                OnContent="{DynamicResource On}" />
-        </ui:SettingsCard>
+                <!--  最大输出 Token 数  -->
+                <ui:SettingsCard Description="{DynamicResource STranslate_Plugin_Translate_DeepSeek_MaxTokens_Description}" Header="{DynamicResource STranslate_Plugin_Translate_DeepSeek_MaxTokens}">
+                    <ui:SettingsCard.HeaderIcon>
+                        <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.NumberSymbol_24_Regular}" />
+                    </ui:SettingsCard.HeaderIcon>
 
-        <!--  推理强度（仅在思考模式开启时可用）  -->
-        <ui:SettingsCard Description="{DynamicResource STranslate_Plugin_Translate_DeepSeek_ReasoningEffort_Description}" Header="{DynamicResource STranslate_Plugin_Translate_DeepSeek_ReasoningEffort}" IsEnabled="{Binding Thinking}">
-            <ui:SettingsCard.HeaderIcon>
-                <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Gauge_24_Regular}" />
-            </ui:SettingsCard.HeaderIcon>
+                    <ui:NumberBox
+                        MinWidth="160"
+                        LargeChange="1024"
+                        Maximum="65536"
+                        Minimum="1"
+                        SmallChange="256"
+                        SpinButtonPlacementMode="Inline"
+                        Value="{Binding MaxTokens}" />
+                </ui:SettingsCard>
 
-            <ComboBox
-                MinWidth="120"
-                SelectedValue="{Binding ReasoningEffort, Mode=TwoWay}"
-                SelectedValuePath="Tag">
-                <ComboBoxItem Content="High" Tag="high" />
-                <ComboBoxItem Content="Max" Tag="max" />
-            </ComboBox>
-        </ui:SettingsCard>
+                <!--  思考模式  -->
+                <ui:SettingsCard Description="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Thinking_Description}" Header="{DynamicResource STranslate_Plugin_Translate_DeepSeek_Thinking}">
+                    <ui:SettingsCard.HeaderIcon>
+                        <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Thinking_20_Regular}" />
+                    </ui:SettingsCard.HeaderIcon>
+
+                    <ui:ToggleSwitch
+                        IsOn="{Binding Thinking}"
+                        OffContent="{DynamicResource Off}"
+                        OnContent="{DynamicResource On}" />
+                </ui:SettingsCard>
+
+                <!--  推理强度（仅在思考模式开启时可用）  -->
+                <ui:SettingsCard Description="{DynamicResource STranslate_Plugin_Translate_DeepSeek_ReasoningEffort_Description}" Header="{DynamicResource STranslate_Plugin_Translate_DeepSeek_ReasoningEffort}" IsEnabled="{Binding Thinking}">
+                    <ui:SettingsCard.HeaderIcon>
+                        <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Gauge_24_Regular}" />
+                    </ui:SettingsCard.HeaderIcon>
+
+                    <ComboBox
+                        MinWidth="120"
+                        SelectedValue="{Binding ReasoningEffort, Mode=TwoWay}"
+                        SelectedValuePath="Tag">
+                        <ComboBoxItem Content="High" Tag="high" />
+                        <ComboBoxItem Content="Max" Tag="max" />
+                    </ComboBox>
+                </ui:SettingsCard>
+
+            </ui:SettingsExpander.Items>
+        </ui:SettingsExpander>
 
         <!--  连接验证  -->
         <ui:SettingsCard Description="{DynamicResource PluginTranslateValidateDescription}" Header="{DynamicResource PluginTranslateValidate}">

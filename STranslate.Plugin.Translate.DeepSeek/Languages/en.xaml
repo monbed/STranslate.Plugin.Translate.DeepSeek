@@ -18,8 +18,12 @@
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Placeholder">Select a prompt template</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_EditPrompt_ToolTip">Edit Prompt</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_EditPrompt_Content">Edit</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ModelParams">Model Parameters</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ModelParams_Description">Generation parameters such as temperature, max tokens and thinking mode</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature">Temperature Control</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature_Description">Controls the randomness of the model's output</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_MaxTokens">Max Tokens</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_MaxTokens_Description">Maximum number of tokens the model can generate in a single response</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking">Thinking Mode</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking_Description">When enabled, the model performs deep reasoning before answering</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort">Reasoning Effort</sys:String>
