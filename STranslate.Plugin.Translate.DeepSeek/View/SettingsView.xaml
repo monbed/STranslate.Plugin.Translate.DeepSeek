@@ -175,19 +175,15 @@
                     </ikw:SimpleStackPanel>
                 </ui:SettingsCard>
 
-                <!--  最大输出 Token 数  -->
+                <!--  Max Tokens（手动输入，不限上限，超限由服务端报错）  -->
                 <ui:SettingsCard Description="{DynamicResource STranslate_Plugin_Translate_DeepSeek_MaxTokens_Description}" Header="{DynamicResource STranslate_Plugin_Translate_DeepSeek_MaxTokens}">
                     <ui:SettingsCard.HeaderIcon>
-                        <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.NumberSymbol_24_Regular}" />
+                        <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.TextWordCount_24_Regular}" />
                     </ui:SettingsCard.HeaderIcon>
 
                     <ui:NumberBox
                         MinWidth="160"
-                        LargeChange="1024"
-                        Maximum="65536"
                         Minimum="1"
-                        SmallChange="256"
-                        SpinButtonPlacementMode="Inline"
                         Value="{Binding MaxTokens}" />
                 </ui:SettingsCard>
 

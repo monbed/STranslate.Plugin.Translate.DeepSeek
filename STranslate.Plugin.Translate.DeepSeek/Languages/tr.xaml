@@ -19,11 +19,11 @@
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_EditPrompt_ToolTip">İstemi düzenle</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_EditPrompt_Content">Düzenle</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ModelParams">Model Parametreleri</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ModelParams_Description">Sıcaklık, maksimum çıktı ve düşünme modu gibi üretim parametreleri</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ModelParams_Description">Sıcaklık, Max Tokens ve düşünme modu gibi üretim parametreleri</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature">Sıcaklık Kontrolü</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature_Description">Model çıktısının rastgeleliğini kontrol eder</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_MaxTokens">Maksimum Çıktı</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_MaxTokens_Description">Modelin tek bir yanıtta üretebileceği maksimum token sayısı</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_MaxTokens">Max Tokens</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_MaxTokens_Description">Üretilecek maksimum token sayısı</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking">Düşünme Modu</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking_Description">Etkinleştirildiğinde model yanıt vermeden önce derinlemesine akıl yürütür</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort">Akıl Yürütme Yoğunluğu</sys:String>
