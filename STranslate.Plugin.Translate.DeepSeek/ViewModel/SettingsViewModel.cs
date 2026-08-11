@@ -131,55 +131,8 @@ public partial class SettingsViewModel : ObservableObject, IDisposable
     {
         try
         {
-            // 构建最终URL（Path 留空时自动补全官方端点 /chat/completions，# 结尾强制使用原样地址）
-            var url = UrlHelper.BuildFinalUrl(_settings.Url, "/chat/completions", UrlPathMatchRule.Strict);
-
-            // 选择模型
-            var model = _settings.Model.Trim();
-            model = string.IsNullOrEmpty(model) ? "deepseek-v4-flash" : model;
-
-            // 替换Prompt关键字
-            var prompt = (Main.Prompts.FirstOrDefault(x => x.IsEnabled) ?? throw new Exception("请先完善Prompt配置"));
-            var messages = prompt.Clone().Items;
-            foreach (var item in messages)
-            {
-                // 与实际翻译时一致，替换为自然语言名称而非语言代码
-                item.Content = item.Content
-                    .Replace("$source", "English")
-                    .Replace("$target", "Simplified Chinese")
-                    .Replace("$content", "Hello world");
-            }
-
-            // 温度限定
-            var temperature = Math.Clamp(_settings.Temperature, 0, 2);
-
-            var content = new Dictionary<string, object>
-            {
-                ["model"] = model,
-                ["messages"] = messages,
-                ["temperature"] = temperature,
-                // 验证只需确认连通性与鉴权，限制返回长度避免消耗用户 token
-                ["max_tokens"] = Math.Min(_settings.MaxTokens, 128),
-                ["top_p"] = _settings.TopP,
-                ["stream"] = _settings.Stream,
-                ["thinking"] = new { type = _settings.Thinking ? "enabled" : "disabled" },
-            };
-
-            // 推理强度仅在思考模式下有意义，关闭时不发送
-            if (_settings.Thinking)
-                content["reasoning_effort"] = _settings.ReasoningEffort;
-
-            var option = new Options
-            {
-                Headers = new Dictionary<string, string>
-                {
-                    { "Authorization", "Bearer " + _settings.ApiKey },
-                    { "Content-Type", "application/json" },
-                    { "Accept", "text/event-stream" }
-                }
-            };
-
-            await _context.HttpService.StreamPostAsync(url, content, (x) => { }, option);
+            // 复用真实翻译管线（验证时自动关闭思考并压低 max_tokens）
+            await Main.ValidateApiAsync();
 
             ValidateResult = _context.GetTranslation("ValidationSuccess");
         }

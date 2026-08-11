@@ -1,6 +1,9 @@
 using Microsoft.Extensions.Logging;
 using STranslate.Plugin.Translate.DeepSeek.View;
 using STranslate.Plugin.Translate.DeepSeek.ViewModel;
+using System.IO;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Text.Json.Nodes;
 using System.Windows.Controls;
@@ -127,6 +130,71 @@ public class Main : LlmTranslatePluginBase
             return;
         }
 
+        var messages = BuildMessages(sourceStr, targetStr, request.Text);
+
+        // 瞬时故障（连接失败/超时/429/5xx）按配置重试；MaxRetries 为 null 或 <= 0 时不重试
+        var maxAttempts = Math.Max(0, Settings.MaxRetries ?? 0) + 1;
+        var retryDelay = Math.Max(0, Settings.RetryDelayMilliseconds);
+
+        for (var attempt = 1; ; attempt++)
+        {
+            if (attempt > 1)
+            {
+                Context.Logger.LogWarning(
+                    "DeepSeek request failed, retrying ({Attempt}/{MaxAttempts}) after {Delay}ms",
+                    attempt, maxAttempts, retryDelay);
+                await Task.Delay(retryDelay, cancellationToken);
+
+                // 清掉上次尝试的半截译文，避免重试期间残留
+                result.Text = string.Empty;
+            }
+
+            try
+            {
+                await ExecuteStreamingAsync(messages, text => result.Text = text, isValidation: false, cancellationToken);
+                return;
+            }
+            catch (Exception ex) when (attempt < maxAttempts && IsTransientFailure(ex, cancellationToken))
+            {
+                // 还有重试次数，继续循环
+            }
+        }
+    }
+
+    internal async Task ValidateApiAsync(CancellationToken cancellationToken = default)
+    {
+        // 与实际翻译走同一语言映射取值，避免验证与真实调用不一致
+        var messages = BuildMessages(
+            GetSourceLanguage(LangEnum.English)!,
+            GetTargetLanguage(LangEnum.ChineseSimplified)!,
+            "Hello world");
+        await ExecuteStreamingAsync(messages, onTextUpdated: null, isValidation: true, cancellationToken);
+    }
+
+    private List<PromptItem> BuildMessages(string source, string target, string text)
+    {
+        var messages = (Prompts.FirstOrDefault(x => x.IsEnabled) ?? throw new Exception("请先完善Prompt配置"))
+            .Clone()
+            .Items
+            .ToList();
+
+        foreach (var item in messages)
+        {
+            item.Content = item.Content
+                .Replace("$source", source)
+                .Replace("$target", target)
+                .Replace("$content", text);
+        }
+
+        return messages;
+    }
+
+    private async Task<string> ExecuteStreamingAsync(
+        IReadOnlyCollection<PromptItem> messages,
+        Action<string>? onTextUpdated,
+        bool isValidation,
+        CancellationToken cancellationToken)
+    {
         // 构建最终URL（Path 留空时自动补全官方端点 /chat/completions，# 结尾强制使用原样地址）
         var url = UrlHelper.BuildFinalUrl(Settings.Url, "/chat/completions", UrlPathMatchRule.Strict);
 
@@ -134,20 +202,11 @@ public class Main : LlmTranslatePluginBase
         var model = Settings.Model.Trim();
         model = string.IsNullOrEmpty(model) ? "deepseek-v4-flash" : model;
 
-        // 替换Prompt关键字
-        var messages = (Prompts.FirstOrDefault(x => x.IsEnabled) ?? throw new Exception("请先完善Prompt配置"))
-            .Clone()
-            .Items;
-        messages.ToList()
-            .ForEach(item =>
-                item.Content = item.Content
-                .Replace("$source", sourceStr)
-                .Replace("$target", targetStr)
-                .Replace("$content", request.Text)
-                );
-
         // 温度限定
         var temperature = Math.Clamp(Settings.Temperature, 0, 2);
+
+        // 验证只需确认连通性与鉴权：关闭思考并压低 max_tokens，避免消耗
+        var thinking = Settings.Thinking && !isValidation;
 
         // 构建请求体，参考 DeepSeek API 最新文档
         var content = new Dictionary<string, object>
@@ -155,17 +214,16 @@ public class Main : LlmTranslatePluginBase
             ["model"] = model,
             ["messages"] = messages,
             ["temperature"] = temperature,
-            ["max_tokens"] = Settings.MaxTokens,
+            ["max_tokens"] = isValidation ? Math.Min(Settings.MaxTokens, 128) : Settings.MaxTokens,
             ["top_p"] = Settings.TopP,
-            ["stream"] = Settings.Stream,
-            ["thinking"] = new { type = Settings.Thinking ? "enabled" : "disabled" },
+            ["stream"] = true,
+            ["thinking"] = new { type = thinking ? "enabled" : "disabled" },
         };
 
         // 推理强度仅在思考模式下有意义，关闭时不发送
-        if (Settings.Thinking)
+        if (thinking)
             content["reasoning_effort"] = Settings.ReasoningEffort;
 
-        // 请求头，使用标准字段名并兼容流式返回
         var option = new Options
         {
             Headers = new Dictionary<string, string>
@@ -179,114 +237,101 @@ public class Main : LlmTranslatePluginBase
         StringBuilder sb = new();
         var isThink = false;
 
-        // 网络抖动、限流等瞬时故障按配置重试；MaxRetries 为 null 或 <= 0 时不重试
-        var maxAttempts = Math.Max(0, Settings.MaxRetries ?? 0) + 1;
-        var retryDelay = Math.Max(0, Settings.RetryDelayMilliseconds);
-
-        for (var attempt = 1; ; attempt++)
+        await Context.HttpService.StreamPostAsync(url, content, msg =>
         {
-            if (attempt > 1)
-            {
-                Context.Logger.LogWarning(
-                    "DeepSeek request failed, retrying ({Attempt}/{MaxAttempts}) after {Delay}ms",
-                    attempt, maxAttempts, retryDelay);
-                await Task.Delay(retryDelay, cancellationToken);
+            var streamEvent = ParseStreamLine(msg);
+            if (!string.IsNullOrWhiteSpace(streamEvent.ErrorMessage))
+                throw new InvalidOperationException(streamEvent.ErrorMessage);
 
-                // 重置累积状态，避免重试后译文重复拼接
-                sb.Clear();
+            var contentValue = streamEvent.TextDelta;
+            if (string.IsNullOrEmpty(contentValue))
+                return;
+
+            // content 内嵌 <think></think> 的推理内容跳过（部分第三方服务商；reasoning_content 字段自然被忽略）
+            if (contentValue.Trim() == "<think>")
+            {
+                isThink = true;
+                return;
+            }
+            if (contentValue.Trim() == "</think>")
+            {
                 isThink = false;
-                result.Text = string.Empty;
-            }
-
-            try
-            {
-                await StreamOnceAsync(url, content, option, result, sb, () => isThink, v => isThink = v, cancellationToken);
                 return;
             }
-            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
-            {
-                throw;
-            }
-            catch when (attempt < maxAttempts)
-            {
-                // 还有重试次数，继续循环
-            }
-        }
-    }
-
-    private Task StreamOnceAsync(string url, Dictionary<string, object> content, Options option, TranslateResult result,
-        StringBuilder sb, Func<bool> getIsThink, Action<bool> setIsThink, CancellationToken cancellationToken)
-    {
-        return Context.HttpService.StreamPostAsync(url, content, msg =>
-        {
-            if (string.IsNullOrWhiteSpace(msg))
+            if (isThink)
                 return;
 
-            // 仅去掉行首的 data: 前缀，避免误删 JSON 字符串值中出现的 "data:"
-            var trimmed = msg.TrimStart();
-            var preprocessString = trimmed.StartsWith("data:")
-                ? trimmed["data:".Length..].Trim()
-                : trimmed.Trim();
-
-            // 结束标记
-            if (preprocessString.Equals("[DONE]"))
+            // 跳过推理结束后的前导空白
+            if (sb.Length == 0 && string.IsNullOrWhiteSpace(contentValue))
                 return;
 
-            try
-            {
-                // 解析JSON数据
-                var parsedData = JsonNode.Parse(preprocessString);
-
-                if (parsedData is null)
-                    return;
-
-                // 提取content的值
-                var contentValue = parsedData["choices"]?[0]?["delta"]?["content"]?.ToString();
-
-                if (string.IsNullOrEmpty(contentValue))
-                    return;
-
-                /***********************************************************************
-                 * 推理模型思考内容
-                 * 1. content字段内：部分服务商用 <think></think> 标签包裹（推理后带有换行）
-                 * 2. reasoning_content字段内：DeepSeek、硅基流动（推理后带有换行）、第三方服务商
-                 ************************************************************************/
-
-                #region 针对content内容中含有推理内容的优化
-
-                if (contentValue.Trim() == "<think>")
-                    setIsThink(true);
-                if (contentValue.Trim() == "</think>")
-                {
-                    setIsThink(false);
-                    // 跳过当前内容
-                    return;
-                }
-
-                if (getIsThink())
-                    return;
-
-                #endregion
-
-                #region 针对推理过后带有换行的情况进行优化
-
-                // 优化推理模型思考结束后的\n\n符号
-                if (string.IsNullOrWhiteSpace(sb.ToString()) && string.IsNullOrWhiteSpace(contentValue))
-                    return;
-
-                sb.Append(contentValue);
-
-                #endregion
-
-                result.Text = sb.ToString();
-            }
-            catch
-            {
-                // Ignore
-                // * 适配 OpenRouter 等第三方服务流数据中包含与 DeepSeek 官方 API 不同的数据
-                // * 如 ": OPENROUTER PROCESSING"，非 JSON 行解析失败时在此兜底忽略
-                Context.Logger.LogDebug("Skipped non-JSON stream line: {Line}", preprocessString);
-            }
+            sb.Append(contentValue);
+            onTextUpdated?.Invoke(sb.ToString());
         }, option, cancellationToken: cancellationToken);
+
+        if (sb.Length == 0)
+            throw new InvalidOperationException(Context.GetTranslation("STranslate_Plugin_Translate_DeepSeek_NoTextOutput"));
+
+        return sb.ToString();
     }
+
+    private readonly record struct StreamEvent(string? TextDelta, string? ErrorMessage);
+
+    private StreamEvent ParseStreamLine(string? line)
+    {
+        if (string.IsNullOrWhiteSpace(line))
+            return default;
+
+        // 仅去掉行首的 data: 前缀，避免误删 JSON 字符串值中出现的 "data:"
+        var payload = line.StartsWith("data:", StringComparison.Ordinal)
+            ? line["data:".Length..].Trim()
+            : line.Trim();
+
+        // 结束标记
+        if (payload.Length == 0 || payload.Equals("[DONE]", StringComparison.Ordinal))
+            return default;
+
+        // 非 JSON 行（如 OpenRouter 心跳 ": OPENROUTER PROCESSING"）直接跳过，不走异常路径
+        if (!payload.StartsWith('{'))
+            return default;
+
+        JsonNode? parsed;
+        try
+        {
+            parsed = JsonNode.Parse(payload);
+        }
+        catch
+        {
+            // 兜底畸形 JSON，记录以便排查第三方服务兼容问题
+            Context.Logger.LogDebug("Skipped unparsable stream line: {Line}", payload);
+            return default;
+        }
+
+        if (parsed is null)
+            return default;
+
+        // 流中错误事件（限流、配额不足等 OpenAI 兼容错误对象）
+        if (parsed["error"]?["message"]?.ToString() is { Length: > 0 } errorMessage)
+            return new StreamEvent(null, errorMessage);
+
+        // choices 可能为空数组（部分服务商首包只带元数据）
+        var choices = parsed["choices"] as JsonArray;
+        var delta = choices is { Count: > 0 }
+            ? choices[0]?["delta"]?["content"]?.ToString()
+            : null;
+
+        return string.IsNullOrEmpty(delta) ? default : new StreamEvent(delta, null);
+    }
+
+    // 宿主 HttpService 对非 2xx 手动抛 HttpRequestException 并填充 StatusCode；
+    // 超时表现为 TaskCanceledException（不携带用户取消）；流中途断开为 IOException
+    private static bool IsTransientFailure(Exception ex, CancellationToken userToken) => ex switch
+    {
+        OperationCanceledException => !userToken.IsCancellationRequested,
+        HttpRequestException http => http.StatusCode is null
+            or HttpStatusCode.TooManyRequests
+            or >= HttpStatusCode.InternalServerError,
+        IOException => true,
+        _ => false,
+    };
 }

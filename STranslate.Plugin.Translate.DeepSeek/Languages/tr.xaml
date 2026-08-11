@@ -24,5 +24,6 @@
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking_Description">Etkinleştirildiğinde model yanıt vermeden önce derinlemesine akıl yürütür</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort">Akıl Yürütme Yoğunluğu</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort_Description">Modelin akıl yürütme derinliğini kontrol eder. High varsayılan, Max karmaşık görevler içindir</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_NoTextOutput">API herhangi bir metin çıktısı döndürmedi.</sys:String>
 
 </ResourceDictionary>

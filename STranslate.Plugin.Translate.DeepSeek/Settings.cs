@@ -13,7 +13,6 @@ public class Settings
     public int MaxTokens { get; set; } = 2048;
     public double Temperature { get; set; } = 0.7;
     public double TopP { get; set; } = 1;
-    public bool Stream { get; set; } = true;
     /// <summary>
     /// 思考模式开关，默认开启
     /// </summary>
@@ -22,6 +21,9 @@ public class Settings
     /// 推理深度控制：high / max，默认 high
     /// </summary>
     public string ReasoningEffort { get; set; } = "high";
+    /// <summary>
+    /// 瞬时故障（连接失败/超时/429/5xx）自动重试次数，null 或 &lt;= 0 不重试
+    /// </summary>
     public int? MaxRetries { get; set; } = 3;
     public int RetryDelayMilliseconds { get; set; } = 1000;
 

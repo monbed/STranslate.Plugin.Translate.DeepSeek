@@ -24,5 +24,6 @@
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking_Description">활성화하면 모델이 깊이 추론한 후 답변합니다</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort">추론 강도</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort_Description">모델의 추론 깊이를 제어합니다. high 가 기본값, max 는 복잡한 작업에 적합합니다</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_NoTextOutput">API에서 텍스트 출력을 반환하지 않았습니다.</sys:String>
 
 </ResourceDictionary>
