@@ -27,7 +27,7 @@
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking">思考モード</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking_Description">有効にすると、モデルは深く推論してから回答します</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort">推論の強度</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort_Description">モデルの推論の深さを制御します。high が既定、max は複雑なタスク向けです</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort_Description">モデルの推論の深さを low / high / max で制御します。high が既定、max は複雑なタスク向けです</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_NoTextOutput">API からテキストが返されませんでした。</sys:String>
 
 </ResourceDictionary>

@@ -27,7 +27,7 @@
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking">Thinking Mode</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking_Description">When enabled, the model performs deep reasoning before answering</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort">Reasoning Effort</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort_Description">Controls reasoning depth. High is default, Max is for complex tasks</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort_Description">Controls reasoning depth (low / high / max). High is default, Max is for complex tasks</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_NoTextOutput">The API returned no text output.</sys:String>
 
 </ResourceDictionary>

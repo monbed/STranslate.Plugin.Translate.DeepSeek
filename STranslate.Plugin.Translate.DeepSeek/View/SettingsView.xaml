@@ -209,6 +209,7 @@
                         MinWidth="120"
                         SelectedValue="{Binding ReasoningEffort, Mode=TwoWay}"
                         SelectedValuePath="Tag">
+                        <ComboBoxItem Content="Low" Tag="low" />
                         <ComboBoxItem Content="High" Tag="high" />
                         <ComboBoxItem Content="Max" Tag="max" />
                     </ComboBox>

@@ -18,7 +18,7 @@ public class Settings
     /// </summary>
     public bool Thinking { get; set; } = true;
     /// <summary>
-    /// 推理深度控制：high / max，默认 high
+    /// 推理深度控制：low / high / max，默认 high
     /// </summary>
     public string ReasoningEffort { get; set; } = "high";
     /// <summary>

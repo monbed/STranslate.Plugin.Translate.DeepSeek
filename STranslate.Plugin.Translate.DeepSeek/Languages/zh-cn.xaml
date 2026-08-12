@@ -27,7 +27,7 @@
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking">思考模式</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking_Description">开启后模型将进行深度推理再作答</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort">推理强度</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort_Description">控制模型的推理深度，high 为默认，max 适合复杂任务</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort_Description">控制模型的推理深度，分 low / high / max 三档，默认 high，max 适合复杂任务</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_NoTextOutput">API 未返回任何文本内容。</sys:String>
 
 </ResourceDictionary>
