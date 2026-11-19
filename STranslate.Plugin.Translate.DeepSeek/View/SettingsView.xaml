@@ -134,8 +134,8 @@
                     </Button>
                 </ikw:SimpleStackPanel>
 
-                <!--  获取结果显示（单独一行靠右，不挤占下拉框和按钮；几秒后自动收起）  -->
-                <Border HorizontalAlignment="Right">
+                <!--  获取结果显示（单独一行，与下拉框左边缘对齐，不挤占下拉框和按钮；几秒后自动收起）  -->
+                <Border HorizontalAlignment="Left">
                     <Border.Style>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="4" />
