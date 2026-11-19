@@ -8,11 +8,16 @@
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Query">照会</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Failed">照会に失敗しました</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url">エンドポイント</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url_Description">DeepSeek API のサービスアドレスを設定します。&#x0a;パスが未入力の場合は自動的に /chat/completions が補完されます。&#x0a;例：DeepSeek の API アドレスが https://api.deepseek.com/chat/completions の場合、パスは /chat/completions です。&#x0a;# で終わる場合は入力したアドレスをそのまま使用します。</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url_Description">DeepSeek API のサービスアドレスを設定します。未入力の場合は公式アドレス https://api.deepseek.com を使用します。&#x0a;アドレスが /chat/completions で終わらない場合は自動的に補完されます。例：https://api.deepseek.com/v1 は https://api.deepseek.com/v1/chat/completions になります。&#x0a;# で終わる場合は補完せず、入力したアドレスをそのまま使用します。</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey">API キー</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Placeholder">キーを入力してください</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Description">DeepSeek の API キーを入力してください</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Model">モデルを選択</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FetchModels">モデルを取得</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FetchModels_ToolTip">API から利用可能なモデルを取得してリストに追加します</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FetchModels_Added">モデルを {0} 件追加しました</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FetchModels_UpToDate">新しいモデルはありません</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FetchModels_Failed">取得に失敗しました</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Header">プロンプト設定</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Description">翻訳に使用するプロンプトテンプレートを選択または編集します</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Placeholder">プロンプトテンプレートを選択</sys:String>
@@ -21,13 +26,17 @@
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ModelParams">モデルパラメータ</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ModelParams_Description">温度・Max Tokens・思考モードなどの生成パラメータ</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature">温度設定</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature_Description">モデル出力のランダム性を制御します</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature_Description">モデル出力のランダム性を制御します。思考モードでは無効です</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_MaxTokens">Max Tokens</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_MaxTokens_Description">生成される最大トークン数</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_MaxTokens_Description">1 回のリクエストで生成される最大トークン数（公式の範囲は 1～393216）。オフの場合は送信せず、サーバー側の既定値を使用します。思考モードで小さすぎると、訳文が途中で切れたり空になったりすることがあります</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking">思考モード</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking_Description">有効にすると、モデルは深く推論してから回答します</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort">推論の強度</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort_Description">モデルの推論の深さを low / high / max で制御します。high が既定、max は複雑なタスク向けです</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_NoTextOutput">API からテキストが返されませんでした。</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FinishReason_Length">出力が Max Tokens またはコンテキスト長の上限に達したため、訳文が不完全な可能性があります。Max Tokens を大きくするかオフにしてください</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FinishReason_ContentFilter">出力がコンテンツフィルターによりブロックされました</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FinishReason_InsufficientResource">サーバーの推論リソース不足により生成が中断されました。しばらくしてからもう一度お試しください</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FinishReason_Aborted">生成が中断されました。訳文が不完全な可能性があります</sys:String>
 
 </ResourceDictionary>

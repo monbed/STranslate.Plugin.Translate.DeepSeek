@@ -5,7 +5,6 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Text.Json.Nodes;
 using System.Windows.Controls;
 
 namespace STranslate.Plugin.Translate.DeepSeek;
@@ -67,6 +66,7 @@ public class Main : LlmTranslatePluginBase
         LangEnum.Dutch => "Dutch",
         LangEnum.Ukrainian => "Ukrainian",
         LangEnum.Uzbek => "Uzbek",
+        LangEnum.Uyghur => "Uyghur",
         _ => "Requires you to identify automatically"
     };
 
@@ -104,6 +104,7 @@ public class Main : LlmTranslatePluginBase
         LangEnum.Dutch => "Dutch",
         LangEnum.Ukrainian => "Ukrainian",
         LangEnum.Uzbek => "Uzbek",
+        LangEnum.Uyghur => "Uyghur",
         _ => "Requires you to identify automatically"
     };
 
@@ -195,34 +196,39 @@ public class Main : LlmTranslatePluginBase
         bool isValidation,
         CancellationToken cancellationToken)
     {
-        // 构建最终URL（Path 留空时自动补全官方端点 /chat/completions，# 结尾强制使用原样地址）
-        var url = UrlHelper.BuildFinalUrl(Settings.Url, "/chat/completions", UrlPathMatchRule.Strict);
+        // 构建最终URL（留空用官方地址，不以 /chat/completions 结尾时自动补上，# 结尾强制使用原样地址）
+        var url = DeepSeekUrl.BuildChatUrl(Settings.Url);
 
         // 选择模型
         var model = Settings.Model.Trim();
         model = string.IsNullOrEmpty(model) ? "deepseek-v4-flash" : model;
 
-        // 温度限定
-        var temperature = Math.Clamp(Settings.Temperature, 0, 2);
-
         // 验证只需确认连通性与鉴权：关闭思考并压低 max_tokens，避免消耗
         var thinking = Settings.Thinking && !isValidation;
 
-        // 构建请求体，参考 DeepSeek API 最新文档
+        // 构建请求体，参考 DeepSeek API 最新文档；
+        // 参数顺序与设置界面一致：思考模式 → 推理强度 / 温度 → top_p → max_tokens
         var content = new Dictionary<string, object>
         {
             ["model"] = model,
             ["messages"] = messages,
-            ["temperature"] = temperature,
-            ["max_tokens"] = isValidation ? Math.Min(Settings.MaxTokens, 128) : Settings.MaxTokens,
-            ["top_p"] = Settings.TopP,
             ["stream"] = true,
             ["thinking"] = new { type = thinking ? "enabled" : "disabled" },
         };
 
-        // 推理强度仅在思考模式下有意义，关闭时不发送
+        // 推理强度仅在思考模式下有意义；温度在思考模式下不生效（见官方文档），两者按模式二选一发送
         if (thinking)
             content["reasoning_effort"] = Settings.ReasoningEffort;
+        else
+            content["temperature"] = Math.Clamp(Settings.Temperature, 0, 2);
+
+        content["top_p"] = Settings.TopP;
+
+        // max_tokens 默认不发送，由服务端决定；验证时始终压到 128 以内，避免消耗
+        if (isValidation)
+            content["max_tokens"] = Math.Min(Settings.MaxTokens, 128);
+        else if (Settings.SendMaxTokens)
+            content["max_tokens"] = Math.Max(1, Settings.MaxTokens);
 
         var option = new Options
         {
@@ -236,12 +242,19 @@ public class Main : LlmTranslatePluginBase
 
         StringBuilder sb = new();
         var isThink = false;
+        string? finishReason = null;
 
         await Context.HttpService.StreamPostAsync(url, content, msg =>
         {
-            var streamEvent = ParseStreamLine(msg);
+            var streamEvent = DeepSeekStream.ParseLine(
+                msg,
+                payload => Context.Logger.LogDebug("Skipped unparsable stream line: {Line}", payload));
             if (!string.IsNullOrWhiteSpace(streamEvent.ErrorMessage))
                 throw new InvalidOperationException(streamEvent.ErrorMessage);
+
+            // 结束原因随最后一个块下发，该块不含新增内容
+            if (streamEvent.FinishReason is not null)
+                finishReason = streamEvent.FinishReason;
 
             var contentValue = streamEvent.TextDelta;
             if (string.IsNullOrEmpty(contentValue))
@@ -269,64 +282,44 @@ public class Main : LlmTranslatePluginBase
             onTextUpdated?.Invoke(sb.ToString());
         }, option, cancellationToken: cancellationToken);
 
+        // 验证沿用原有判定：只看是否拿到文本，结束原因不参与判断
+        if (isValidation)
+        {
+            if (sb.Length == 0)
+                throw new InvalidOperationException(Context.GetTranslation("STranslate_Plugin_Translate_DeepSeek_NoTextOutput"));
+
+            return sb.ToString();
+        }
+
+        // 推理资源不足属于服务端瞬时故障，交给外层按重试配置处理
+        if (finishReason == DeepSeekStream.FinishInsufficientResource)
+            throw new TransientStreamException(Context.GetTranslation(DeepSeekStream.GetIncompleteMessageKey(finishReason)!));
+
+        // 输出未正常结束（长度截断 / 内容过滤 / 被中断）时的提示文本键
+        var incompleteKey = DeepSeekStream.GetIncompleteMessageKey(finishReason);
+
         if (sb.Length == 0)
-            throw new InvalidOperationException(Context.GetTranslation("STranslate_Plugin_Translate_DeepSeek_NoTextOutput"));
+            throw new InvalidOperationException(
+                Context.GetTranslation(incompleteKey ?? "STranslate_Plugin_Translate_DeepSeek_NoTextOutput"));
+
+        // 有部分译文时保留已输出内容，并提示用户译文不完整
+        if (incompleteKey is not null)
+        {
+            Context.Logger.LogWarning("DeepSeek response is incomplete, finish_reason: {FinishReason}", finishReason);
+            Context.Snackbar.ShowWarning(Context.GetTranslation(incompleteKey), 5000);
+        }
 
         return sb.ToString();
     }
 
-    private readonly record struct StreamEvent(string? TextDelta, string? ErrorMessage);
-
-    private StreamEvent ParseStreamLine(string? line)
-    {
-        if (string.IsNullOrWhiteSpace(line))
-            return default;
-
-        // 仅去掉行首的 data: 前缀，避免误删 JSON 字符串值中出现的 "data:"
-        var payload = line.StartsWith("data:", StringComparison.Ordinal)
-            ? line["data:".Length..].Trim()
-            : line.Trim();
-
-        // 结束标记
-        if (payload.Length == 0 || payload.Equals("[DONE]", StringComparison.Ordinal))
-            return default;
-
-        // 非 JSON 行（如 OpenRouter 心跳 ": OPENROUTER PROCESSING"）直接跳过，不走异常路径
-        if (!payload.StartsWith('{'))
-            return default;
-
-        JsonNode? parsed;
-        try
-        {
-            parsed = JsonNode.Parse(payload);
-        }
-        catch
-        {
-            // 兜底畸形 JSON，记录以便排查第三方服务兼容问题
-            Context.Logger.LogDebug("Skipped unparsable stream line: {Line}", payload);
-            return default;
-        }
-
-        if (parsed is null)
-            return default;
-
-        // 流中错误事件（限流、配额不足等 OpenAI 兼容错误对象）
-        if (parsed["error"]?["message"]?.ToString() is { Length: > 0 } errorMessage)
-            return new StreamEvent(null, errorMessage);
-
-        // choices 可能为空数组（部分服务商首包只带元数据）
-        var choices = parsed["choices"] as JsonArray;
-        var delta = choices is { Count: > 0 }
-            ? choices[0]?["delta"]?["content"]?.ToString()
-            : null;
-
-        return string.IsNullOrEmpty(delta) ? default : new StreamEvent(delta, null);
-    }
+    // 服务端主动中断且值得重试的流（如 finish_reason 为 insufficient_system_resource）
+    private sealed class TransientStreamException(string message) : Exception(message);
 
     // 宿主 HttpService 对非 2xx 手动抛 HttpRequestException 并填充 StatusCode；
     // 超时表现为 TaskCanceledException（不携带用户取消）；流中途断开为 IOException
     private static bool IsTransientFailure(Exception ex, CancellationToken userToken) => ex switch
     {
+        TransientStreamException => true,
         OperationCanceledException => !userToken.IsCancellationRequested,
         HttpRequestException http => http.StatusCode is null
             or HttpStatusCode.TooManyRequests

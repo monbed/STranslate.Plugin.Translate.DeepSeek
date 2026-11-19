@@ -8,11 +8,16 @@
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Query">Sorgula</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Failed">Sorgulama başarısız</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url">Uç Nokta</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url_Description">DeepSeek API hizmet adresini yapılandırın.&#x0a;Yol boş bırakılırsa otomatik olarak /chat/completions eklenir.&#x0a;Örneğin, DeepSeek API adresi https://api.deepseek.com/chat/completions ise Yol /chat/completions olur.&#x0a;# ile biterse girilen adres olduğu gibi kullanılır.</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url_Description">DeepSeek API hizmet adresini yapılandırın. Boş bırakılırsa resmî adres https://api.deepseek.com kullanılır.&#x0a;Adres /chat/completions ile bitmiyorsa otomatik olarak eklenir; örneğin https://api.deepseek.com/v1 adresi https://api.deepseek.com/v1/chat/completions olur.&#x0a;# ile biterse tamamlama yapılmaz, girilen adres olduğu gibi kullanılır.</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey">API Anahtarı</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Placeholder">Lütfen anahtarınızı girin</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Description">DeepSeek API anahtarınızı girin</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Model">Model seçin</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FetchModels">Modelleri getir</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FetchModels_ToolTip">Kullanılabilir modelleri API'den getirip listeye ekler</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FetchModels_Added">Eklenen model sayısı: {0}</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FetchModels_UpToDate">Yeni model yok</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FetchModels_Failed">Modeller getirilemedi</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Header">İstem Yapılandırması</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Description">Çeviri için kullanılan istem şablonunu seçin veya düzenleyin</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Placeholder">Bir istem şablonu seçin</sys:String>
@@ -21,13 +26,17 @@
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ModelParams">Model Parametreleri</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ModelParams_Description">Sıcaklık, Max Tokens ve düşünme modu gibi üretim parametreleri</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature">Sıcaklık Kontrolü</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature_Description">Model çıktısının rastgeleliğini kontrol eder</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature_Description">Model çıktısının rastgeleliğini kontrol eder. Düşünme modunda etkisizdir</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_MaxTokens">Max Tokens</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_MaxTokens_Description">Üretilecek maksimum token sayısı</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_MaxTokens_Description">İstek başına üretilecek maksimum token sayısı (resmî aralık: 1–393216). Kapalıyken gönderilmez ve sunucu karar verir. Düşünme modunda çok küçük bir değer çevirinin yarıda kesilmesine veya boş dönmesine yol açabilir</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking">Düşünme Modu</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking_Description">Etkinleştirildiğinde model yanıt vermeden önce derinlemesine akıl yürütür</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort">Akıl Yürütme Yoğunluğu</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort_Description">Modelin akıl yürütme derinliğini low / high / max olarak kontrol eder. High varsayılan, Max karmaşık görevler içindir</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_NoTextOutput">API herhangi bir metin çıktısı döndürmedi.</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FinishReason_Length">Çıktı, Max Tokens veya bağlam uzunluğu sınırına ulaştı; çeviri eksik olabilir. Max Tokens değerini artırın veya kapatın</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FinishReason_ContentFilter">Çıktı içerik filtresi tarafından engellendi</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FinishReason_InsufficientResource">Sunucuda çıkarım kaynakları yetersiz olduğu için üretim kesildi. Lütfen daha sonra tekrar deneyin</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FinishReason_Aborted">Üretim kesintiye uğradı; çeviri eksik olabilir</sys:String>
 
 </ResourceDictionary>

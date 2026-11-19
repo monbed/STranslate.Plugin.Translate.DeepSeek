@@ -10,9 +10,7 @@ public class Settings
         "deepseek-v4-flash",
         "deepseek-v4-pro",
     ];
-    public int MaxTokens { get; set; } = 2048;
-    public double Temperature { get; set; } = 0.7;
-    public double TopP { get; set; } = 1;
+    // 以下模型参数按设置界面与请求体中的顺序排列
     /// <summary>
     /// 思考模式开关，默认开启
     /// </summary>
@@ -21,6 +19,16 @@ public class Settings
     /// 推理深度控制：low / high / max，默认 high
     /// </summary>
     public string ReasoningEffort { get; set; } = "high";
+    /// <summary>
+    /// 采样温度，仅在非思考模式下发送
+    /// </summary>
+    public double Temperature { get; set; } = 0.7;
+    public double TopP { get; set; } = 1;
+    /// <summary>
+    /// 是否发送 max_tokens，默认关闭（不发送时由服务端决定：官方默认非思考 8K、思考 64K）
+    /// </summary>
+    public bool SendMaxTokens { get; set; } = false;
+    public int MaxTokens { get; set; } = 8192;
     /// <summary>
     /// 瞬时故障（连接失败/超时/429/5xx）自动重试次数，null 或 &lt;= 0 不重试
     /// </summary>

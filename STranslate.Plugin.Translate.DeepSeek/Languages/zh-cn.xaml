@@ -8,11 +8,16 @@
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Query">查询</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Failed">查询失败</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url">接口</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url_Description">配置 DeepSeek API 服务地址&#x0a;接口API地址不填写Path内容则自动填充 /chat/completions&#x0a;如DeepSeek接口地址为 https://api.deepseek.com/chat/completions 其中 Path 为 /chat/completions&#x0a;以 # 结尾则强制使用填写的地址</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url_Description">配置 DeepSeek API 服务地址，留空则使用官方地址 https://api.deepseek.com&#x0a;地址不以 /chat/completions 结尾时会自动补上，如 https://api.deepseek.com/v1 实际请求 https://api.deepseek.com/v1/chat/completions&#x0a;以 # 结尾则强制使用填写的地址，不做补全</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey">密钥</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Placeholder">请输入密钥</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Description">输入您的 DeepSeek API 密钥</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Model">请选择模型</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FetchModels">获取模型</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FetchModels_ToolTip">从接口获取可用模型并添加到列表</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FetchModels_Added">已添加 {0} 个模型</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FetchModels_UpToDate">没有新模型</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FetchModels_Failed">获取失败</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Header">提示词配置</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Description">选择或编辑翻译使用的提示词模板</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Placeholder">选择提示词模板</sys:String>
@@ -21,13 +26,17 @@
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ModelParams">模型参数</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ModelParams_Description">温度、Max Tokens、思考模式等生成参数</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature">温度控制</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature_Description">控制着模型输出的随机性</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature_Description">控制着模型输出的随机性，思考模式下不生效</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_MaxTokens">Max Tokens</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_MaxTokens_Description">生成的最大词元（Tokens）数</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_MaxTokens_Description">限制单次请求生成的最大 Token 数，官方取值范围 1～393216。关闭时不发送，由服务端决定；思考模式下设置过小可能导致译文被截断或为空</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking">思考模式</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking_Description">开启后模型将进行深度推理再作答</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort">推理强度</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort_Description">控制模型的推理深度，分 low / high / max 三档，默认 high，max 适合复杂任务</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_NoTextOutput">API 未返回任何文本内容。</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FinishReason_Length">输出达到 Max Tokens 或上下文长度上限，译文可能不完整。请调大或关闭 Max Tokens</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FinishReason_ContentFilter">输出内容触发过滤策略，已被过滤</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FinishReason_InsufficientResource">系统推理资源不足，生成被打断，请稍后重试</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FinishReason_Aborted">生成过程被中断，译文可能不完整</sys:String>
 
 </ResourceDictionary>

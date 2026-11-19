@@ -8,11 +8,16 @@
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Query">Query</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Failed">Query failed</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url">URL</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url_Description">Configure the DeepSeek API service address.&#x0a;If the Path is not filled in, it will be automatically populated with /chat/completions.&#x0a;For example, for the DeepSeek API address https://api.deepseek.com/chat/completions, the Path is /chat/completions.&#x0a;End with # to force the exact address as entered.</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url_Description">Configure the DeepSeek API service address. Leave empty to use the official address https://api.deepseek.com.&#x0a;If the address does not end with /chat/completions, it is appended automatically, e.g. https://api.deepseek.com/v1 becomes https://api.deepseek.com/v1/chat/completions.&#x0a;End with # to use the exact address as entered, without completion.</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey">ApiKey</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Placeholder">Please enter your API key</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Description">Enter your DeepSeek API key</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Model">Select a model</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FetchModels">Fetch models</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FetchModels_ToolTip">Fetch available models from the API and add them to the list</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FetchModels_Added">Added {0} model(s)</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FetchModels_UpToDate">No new models</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FetchModels_Failed">Fetch failed</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Header">Prompt Configuration</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Description">Select or edit the prompt template for translation</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Placeholder">Select a prompt template</sys:String>
@@ -21,13 +26,17 @@
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ModelParams">Model Parameters</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ModelParams_Description">Generation parameters such as temperature, max tokens and thinking mode</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature">Temperature Control</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature_Description">Controls the randomness of the model's output</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature_Description">Controls the randomness of the model's output. Has no effect in thinking mode</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_MaxTokens">Max Tokens</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_MaxTokens_Description">Maximum number of tokens to generate</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_MaxTokens_Description">Maximum number of tokens generated per request (official range: 1–393216). When off, the parameter is not sent and the server decides. In thinking mode, a value that is too small may truncate the translation or return nothing</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking">Thinking Mode</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking_Description">When enabled, the model performs deep reasoning before answering</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort">Reasoning Effort</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort_Description">Controls reasoning depth (low / high / max). High is default, Max is for complex tasks</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_NoTextOutput">The API returned no text output.</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FinishReason_Length">Output reached the Max Tokens or context length limit; the translation may be incomplete. Increase Max Tokens or turn it off</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FinishReason_ContentFilter">The output was blocked by the content filter</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FinishReason_InsufficientResource">Generation was interrupted because the server is short of inference resources. Please try again later</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FinishReason_Aborted">Generation was interrupted; the translation may be incomplete</sys:String>
 
 </ResourceDictionary>

@@ -1,0 +1,42 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance">موجودی</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Description">موجودی قابل استفاده حساب مربوط به کلید API فعلی را استعلام می‌کند (شامل موجودی هدیه و شارژشده)</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Query">استعلام</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Balance_Failed">استعلام ناموفق بود</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url">نشانی API</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Url_Description">نشانی سرویس DeepSeek API را تنظیم کنید. اگر خالی بماند، نشانی رسمی https://api.deepseek.com استفاده می‌شود.&#x0a;اگر نشانی به /chat/completions ختم نشود، این مسیر به‌طور خودکار افزوده می‌شود؛ برای مثال https://api.deepseek.com/v1 به https://api.deepseek.com/v1/chat/completions تبدیل می‌شود.&#x0a;برای استفاده از نشانی دقیقاً به همان شکل واردشده و بدون تکمیل خودکار، آن را با # تمام کنید.</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey">کلید API</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Placeholder">کلید را وارد کنید</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ApiKey_Description">کلید DeepSeek API خود را وارد کنید</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Model">انتخاب مدل</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FetchModels">دریافت مدل‌ها</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FetchModels_ToolTip">مدل‌های موجود را از API دریافت و به فهرست اضافه می‌کند</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FetchModels_Added">تعداد مدل‌های اضافه‌شده: {0}</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FetchModels_UpToDate">مدل جدیدی وجود ندارد</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FetchModels_Failed">دریافت مدل‌ها ناموفق بود</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Header">پیکربندی پرامپت</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Description">قالب پرامپت مورد استفاده برای ترجمه را انتخاب یا ویرایش کنید</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Prompt_Placeholder">یک قالب پرامپت انتخاب کنید</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_EditPrompt_ToolTip">ویرایش پرامپت</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_EditPrompt_Content">ویرایش</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ModelParams">پارامترهای مدل</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ModelParams_Description">پارامترهای تولید مانند دما، Max Tokens و حالت تفکر</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature">کنترل دما</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Temperature_Description">میزان تصادفی بودن خروجی مدل را کنترل می‌کند. در حالت تفکر اثری ندارد</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_MaxTokens">Max Tokens</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_MaxTokens_Description">حداکثر تعداد توکن‌های تولیدی در هر درخواست (بازه رسمی: 1 تا 393216). در حالت خاموش ارسال نمی‌شود و سرور تصمیم می‌گیرد. در حالت تفکر، مقدار بسیار کم ممکن است باعث ناقص ماندن ترجمه یا خالی بودن پاسخ شود</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking">حالت تفکر</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_Thinking_Description">در صورت فعال بودن، مدل پیش از پاسخ‌گویی استدلال عمیق انجام می‌دهد</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort">شدت استدلال</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_ReasoningEffort_Description">عمق استدلال مدل را در سه سطح low / high / max کنترل می‌کند. پیش‌فرض high است و max برای کارهای پیچیده مناسب است</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_NoTextOutput">پاسخ API شامل خروجی متنی نبود.</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FinishReason_Length">خروجی به سقف Max Tokens یا طول زمینه رسید و ممکن است ترجمه ناقص باشد. مقدار Max Tokens را افزایش دهید یا آن را خاموش کنید</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FinishReason_ContentFilter">خروجی توسط فیلتر محتوا مسدود شد</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FinishReason_InsufficientResource">به دلیل کمبود منابع استنتاج در سرور، تولید متوقف شد. لطفاً بعداً دوباره تلاش کنید</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Translate_DeepSeek_FinishReason_Aborted">تولید متوقف شد و ممکن است ترجمه ناقص باشد</sys:String>
+
+</ResourceDictionary>
