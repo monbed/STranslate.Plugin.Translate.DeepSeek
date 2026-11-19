@@ -106,6 +106,27 @@ public partial class SettingsViewModel : ObservableObject, IDisposable
 
     partial void OnUrlChanged(string value) => OnPropertyChanged(nameof(FinalUrl));
 
+    // “获取模型”的结果提示显示几秒后自动收起，不长期占用版面
+    private const int FetchModelsResultDurationMs = 4000;
+    private int _fetchModelsResultVersion;
+
+    partial void OnFetchModelsResultChanged(string value)
+    {
+        if (string.IsNullOrEmpty(value))
+            return;
+
+        _ = ClearFetchModelsResultLaterAsync(++_fetchModelsResultVersion);
+    }
+
+    private async Task ClearFetchModelsResultLaterAsync(int version)
+    {
+        await Task.Delay(FetchModelsResultDurationMs);
+
+        // 期间又有新的提示时，由新提示自己的计时负责收起
+        if (version == _fetchModelsResultVersion)
+            FetchModelsResult = string.Empty;
+    }
+
     [RelayCommand]
     private void AddModel(string model)
     {

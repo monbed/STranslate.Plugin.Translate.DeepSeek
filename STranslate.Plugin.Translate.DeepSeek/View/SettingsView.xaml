@@ -86,9 +86,56 @@
             <ui:SettingsCard.HeaderIcon>
                 <ui:FontIcon FontFamily="{StaticResource {x:Static ui:ThemeKeys.FluentSystemIconsKey}}" Glyph="&#xF0797;" />
             </ui:SettingsCard.HeaderIcon>
-            <ikw:SimpleStackPanel Orientation="Horizontal" Spacing="8">
-                <!--  获取结果显示  -->
-                <Border>
+            <ikw:SimpleStackPanel Orientation="Vertical" Spacing="8">
+                <ikw:SimpleStackPanel Orientation="Horizontal" Spacing="8">
+                    <ComboBox
+                        MinWidth="200"
+                        IsEditable="True"
+                        ItemsSource="{Binding Models}"
+                        SelectedItem="{Binding Model, Mode=TwoWay}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="LostFocus">
+                                <i:InvokeCommandAction Command="{Binding AddModelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ComboBox}, Path=Text}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding}" />
+                                    <Button
+                                        Grid.Column="1"
+                                        Margin="4,0,0,0"
+                                        Padding="4"
+                                        VerticalAlignment="Center"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Command="{Binding DataContext.DeleteModelCommand, RelativeSource={RelativeSource AncestorType=ComboBox}}"
+                                        CommandParameter="{Binding}">
+                                        <ui:FontIcon
+                                            FontSize="{DynamicResource STControlFontSize12}"
+                                            Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                                            Icon="{x:Static ui:FluentSystemIcons.Delete_24_Regular}" />
+                                    </Button>
+                                </Grid>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <!--  从接口获取模型列表  -->
+                    <Button Command="{Binding FetchModelsCommand}" ToolTip="{DynamicResource STranslate_Plugin_Translate_DeepSeek_FetchModels_ToolTip}">
+                        <ui:IconAndText Content="{DynamicResource STranslate_Plugin_Translate_DeepSeek_FetchModels}" Icon="{x:Static ui:FluentSystemIcons.ArrowSync_24_Regular}" />
+                    </Button>
+                </ikw:SimpleStackPanel>
+
+                <!--  获取结果显示（单独一行靠右，不挤占下拉框和按钮；几秒后自动收起）  -->
+                <Border HorizontalAlignment="Right">
                     <Border.Style>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="4" />
@@ -107,51 +154,6 @@
                         Foreground="{DynamicResource SystemFillColorSuccessBrush}"
                         Text="{Binding FetchModelsResult}" />
                 </Border>
-
-                <ComboBox
-                    MinWidth="200"
-                    IsEditable="True"
-                    ItemsSource="{Binding Models}"
-                    SelectedItem="{Binding Model, Mode=TwoWay}">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="LostFocus">
-                            <i:InvokeCommandAction Command="{Binding AddModelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ComboBox}, Path=Text}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock
-                                    Grid.Column="0"
-                                    VerticalAlignment="Center"
-                                    Text="{Binding}" />
-                                <Button
-                                    Grid.Column="1"
-                                    Margin="4,0,0,0"
-                                    Padding="4"
-                                    VerticalAlignment="Center"
-                                    Background="Transparent"
-                                    BorderThickness="0"
-                                    Command="{Binding DataContext.DeleteModelCommand, RelativeSource={RelativeSource AncestorType=ComboBox}}"
-                                    CommandParameter="{Binding}">
-                                    <ui:FontIcon
-                                        FontSize="{DynamicResource STControlFontSize12}"
-                                        Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                                        Icon="{x:Static ui:FluentSystemIcons.Delete_24_Regular}" />
-                                </Button>
-                            </Grid>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-
-                <!--  从接口获取模型列表  -->
-                <Button Command="{Binding FetchModelsCommand}" ToolTip="{DynamicResource STranslate_Plugin_Translate_DeepSeek_FetchModels_ToolTip}">
-                    <ui:IconAndText Content="{DynamicResource STranslate_Plugin_Translate_DeepSeek_FetchModels}" Icon="{x:Static ui:FluentSystemIcons.ArrowSync_24_Regular}" />
-                </Button>
             </ikw:SimpleStackPanel>
         </ui:SettingsCard>
 
